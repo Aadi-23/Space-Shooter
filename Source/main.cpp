@@ -22,7 +22,7 @@
 ********************************************************************************************/
 
 #include "raylib.h"
-
+#include "GameLevel.h"
 //------------------------------------------------------------------------------------
 // Program main entry point
 //------------------------------------------------------------------------------------
@@ -42,6 +42,7 @@ int main(void)
     InitWindow(screenWidth, screenHeight, "raylib [core] example - basic window");
     SetTargetFPS(60);               // Set our game to run at 60 frames-per-second
     GameManager currentscreen = TitleScreen;
+    Level gamelevel;
     //--------------------------------------------------------------------------------------
 
     // Main game loop
@@ -82,7 +83,9 @@ int main(void)
 
             ClearBackground(BLACK);
 
-            DrawRectangle(20, 20, 40, 40, RED);
+            gamelevel.render();
+
+            
 
             EndDrawing();
 
