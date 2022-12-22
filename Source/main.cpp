@@ -43,6 +43,7 @@ int main(void)
     SetTargetFPS(60);               // Set our game to run at 60 frames-per-second
     GameManager currentscreen = TitleScreen;
     Level gamelevel;
+    Entity Player;
     //--------------------------------------------------------------------------------------
 
     // Main game loop
@@ -84,6 +85,8 @@ int main(void)
             ClearBackground(BLACK);
 
             gamelevel.render();
+
+            gamelevel.MovePlayer(gamelevel.CreateMovementVector(), &Player);
 
             
 
