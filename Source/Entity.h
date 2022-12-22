@@ -1,4 +1,3 @@
-#include <raylib.h>
 #include "myMath.h"
 
 
@@ -6,6 +5,7 @@ struct EntityDescription
 {
 	Color color = RAYWHITE;
 };
+
 
 class Entity
 {

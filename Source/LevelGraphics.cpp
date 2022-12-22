@@ -1,8 +1,6 @@
-#include "Entity.h"
 #include "GameLevel.h"
 
-void Level::render()
+void Level::render(Entity & entities)
 {
-	Entity entities;
-	DrawRectangle(entities.Position.x, entities.Position.y, 40, 40, entities.desc->color);
+	DrawRectangle(entities.Position.x*10, entities.Position.y*10, 40, 40, RAYWHITE);
 }

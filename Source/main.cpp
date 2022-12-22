@@ -70,7 +70,7 @@ int main(void)
 
             EndDrawing();
 
-            if (IsKeyPressed(KEY_SPACE))
+            if (IsKeyPressed(KEY_ENTER))
             {
                 currentscreen = GameScreen;
             }
@@ -84,7 +84,7 @@ int main(void)
 
             ClearBackground(BLACK);
 
-            gamelevel.render();
+            gamelevel.render(Player);
 
             gamelevel.MovePlayer(gamelevel.CreateMovementVector(), &Player);
 
