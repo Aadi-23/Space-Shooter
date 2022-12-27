@@ -1,6 +1,15 @@
 #include "GameLevel.h"
 
-void Level::render(Entity & entities)
+void Level::render()
 {
-	DrawRectangle(entities.Position.x*10, entities.Position.y*10, 40, 40, RAYWHITE);
+	for (auto& e : entities)
+	{
+		switch (e.kind)
+		{
+		case(EntityKind::PLAYER):
+			DrawRectangle(e.Position.x * 10, e.Position.y * 10, 40, 40, RED);
+
+			break;
+		}
+	}
 }

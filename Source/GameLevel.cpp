@@ -12,10 +12,10 @@ Vector2i Level::CreateMovementVector()
 	return Vector2i(LRMV, UDMV);
 }
 
-void Level::MovePlayer(Vector2i CreateMovementVector, Entity* e)
+void Level::MovePlayer(Vector2i CreateMovementVector, Level * level)
 {
-	Vector2i FuturePosition = e->Position + CreateMovementVector;
+	Vector2i FuturePosition = level->entities[0].Position + CreateMovementVector;
 
 
-	e->Position = FuturePosition;
+	level->entities[0].Position = FuturePosition;
 }
