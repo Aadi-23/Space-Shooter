@@ -22,7 +22,7 @@
 ********************************************************************************************/
 
 #include "raylib.h"
-#include "GameLevel.h"
+#include "Entity.h"
 //------------------------------------------------------------------------------------
 // Program main entry point
 //------------------------------------------------------------------------------------
@@ -84,9 +84,9 @@ int main(void)
 
             ClearBackground(BLACK);
 
-            gamelevel.render(Player);
+            gamelevel.render();
 
-            gamelevel.MovePlayer(gamelevel.CreateMovementVector(), &Player);
+            gamelevel.update();
 
             
 

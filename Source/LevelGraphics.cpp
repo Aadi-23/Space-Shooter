@@ -1,4 +1,4 @@
-#include "GameLevel.h"
+#include "Entity.h"
 
 void Level::render()
 {

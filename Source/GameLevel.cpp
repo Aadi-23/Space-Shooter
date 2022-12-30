@@ -1,5 +1,5 @@
 #include "myMath.h"
-#include "GameLevel.h"
+#include "Entity.h"
 
 
 
@@ -12,10 +12,16 @@ Vector2i Level::CreateMovementVector()
 	return Vector2i(LRMV, UDMV);
 }
 
-void Level::MovePlayer(Vector2i CreateMovementVector, Level * level)
+void Level::MovePlayer(Vector2i CreateMovementVector)
 {
-	Vector2i FuturePosition = level->entities[0].Position + CreateMovementVector;
+	Vector2i FuturePosition = entities[0].Position + CreateMovementVector;
 
 
-	level->entities[0].Position = FuturePosition;
+	entities[0].Position = FuturePosition;
+}
+
+
+void Level::update()
+{
+	MovePlayer(CreateMovementVector());
 }

@@ -167,7 +167,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Entity.h" />
-    <ClInclude Include="Source\GameLevel.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

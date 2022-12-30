@@ -1,4 +1,5 @@
 #include "myMath.h"
+#include <vector>
 
 
 enum class EntityKind
@@ -9,7 +10,7 @@ enum class EntityKind
 	COINS,
 };
 
-class Level;
+
 
 struct EntityDescription
 {
@@ -24,4 +25,22 @@ public:
 
 	EntityKind kind;
 	Vector2i Position;
+};
+
+
+
+
+class Level
+{
+public:
+	void render();
+	Vector2i CreateMovementVector();
+	void MovePlayer(Vector2i CreateMovementVector);
+
+	void update();
+
+	
+	std::vector<Vector2i> Rocks;
+	std::vector<Entity> entities{ Entity{EntityKind{EntityKind::PLAYER} , Vector2i{40,40} } };
+
 };
