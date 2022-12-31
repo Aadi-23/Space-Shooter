@@ -22,28 +22,58 @@ void Level::MovePlayer(Vector2i CreateMovementVector)
 
 void Level::spawn_fire()
 {
-	Entity rock;
+	Entity laser;
 	
 	if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON))
 	{
-		rock.Position = entities[0].Position;
-		rock.kind = EntityKind::ROCKS;
+		laser.Position = entities[0].Position;
+		laser.kind = EntityKind::LASER;
 
-		entities.push_back(rock);
+		entities.push_back(laser);
 	}
 }
 
-void Level::fire_movement()
+void Level::Object_movement()
 {
 	for (auto& e : entities)
 	{
-		switch(e.kind)
+		switch (e.kind)
 		{
-		case(EntityKind::ROCKS):
-			{
-			e.Position.y -= (int)TRAVEL_DIRECTION * TRAVEL_SPEED;
-			}
+		case(EntityKind::LASER):
+		{
+			e.Position.y -= static_cast<int>(TRAVEL_DIRECTION_Y * TRAVEL_SPEED_LASER);
+			break;
 		}
+
+		case(EntityKind::ROCKS):
+		{
+			e.Position.y += static_cast<int>(TRAVEL_DIRECTION_Y * TRAVEL_SPEED_ROCKS);
+			break;
+		}
+		}
+	}
+}
+
+void Level::spawn_rocks()
+{
+	Entity rocks;
+
+	
+
+	index++;
+
+	if (index == 120)
+	{
+		rocks.Position.x = GetRandomValue(0, 80);
+
+		rocks.Position.y = 0;
+		rocks.kind = EntityKind::ROCKS;
+
+		entities.push_back(rocks);
+
+		index = 0;
+
+		
 	}
 }
 
@@ -51,6 +81,8 @@ void Level::update()
 {
 	MovePlayer(CreateMovementVector());
 	spawn_fire();
-	fire_movement();
+	spawn_rocks();
+	Object_movement();
 	
 }
+

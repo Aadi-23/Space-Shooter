@@ -7,6 +7,7 @@ enum class EntityKind
 {
 	NONE = 0,
 	PLAYER,
+	LASER,
 	ROCKS,
 	COINS,
 };
@@ -30,9 +31,12 @@ public:
 	void render();
 	Vector2i CreateMovementVector();
 	void MovePlayer(Vector2i CreateMovementVector);
+	int index = 0;
 
 	void spawn_fire();
-	void fire_movement();
+	void spawn_rocks();
+	void Object_movement();
+	
 
 	void update();
 
