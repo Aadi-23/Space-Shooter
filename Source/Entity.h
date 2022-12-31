@@ -1,5 +1,6 @@
 #include "myMath.h"
 #include <vector>
+#include "Constants.h"
 
 
 enum class EntityKind
@@ -9,20 +10,13 @@ enum class EntityKind
 	ROCKS,
 	COINS,
 };
-
-
-
-struct EntityDescription
-{
-	Color color = RAYWHITE;
-};
+;
 
 
 class Entity
 {
 public:
-	//EntityDescription* desc;
-
+	
 	EntityKind kind;
 	Vector2i Position;
 };
@@ -36,6 +30,9 @@ public:
 	void render();
 	Vector2i CreateMovementVector();
 	void MovePlayer(Vector2i CreateMovementVector);
+
+	void spawn_fire();
+	void fire_movement();
 
 	void update();
 
