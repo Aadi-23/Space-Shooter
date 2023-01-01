@@ -34,7 +34,7 @@ public:
 	int index = 0;
 	int laser_charge_timer = 0;
 
-	void spawn_fire();
+	void spawn_laser();
 	void spawn_rocks();
 	void Object_movement();
 	

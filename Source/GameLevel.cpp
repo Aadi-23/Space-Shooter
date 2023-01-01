@@ -15,12 +15,15 @@ Vector2i Level::CreateMovementVector()
 void Level::MovePlayer(Vector2i CreateMovementVector)
 {
 	Vector2i FuturePosition = entities[0].Position + CreateMovementVector;
-
-
-	entities[0].Position = FuturePosition;
+	
+	if ((FuturePosition.x > 0) && (FuturePosition.x < 80 - 4) && (FuturePosition.y > 0) && (FuturePosition.y < 65 - 4))
+	{
+		entities[0].Position = FuturePosition;
+	}
+	
 }
 
-void Level::spawn_fire()
+void Level::spawn_laser()
 {
 	Entity laser;
 	
@@ -47,13 +50,12 @@ void Level::Object_movement()
 		{
 		case(EntityKind::LASER):
 		{
-			e.Position.x = entities[0].Position.x;
 
 			if (IsKeyDown(KEY_Z))
 			{
-				e.Position.y = entities[0].Position.y;	
+				e.Position = entities[0].Position;
 			}
-			if (!IsKeyDown(KEY_Z))
+			if(IsKeyUp(KEY_Z))
 			{
 				e.Position.y -= static_cast<int>(TRAVEL_DIRECTION_Y * TRAVEL_SPEED_LASER);
 			}
@@ -63,6 +65,8 @@ void Level::Object_movement()
 				e.Position.y -= static_cast<int>(TRAVEL_DIRECTION_Y * TRAVEL_SPEED_LASER);
 			}
 			
+
+
 			break;
 		}
 
@@ -73,6 +77,7 @@ void Level::Object_movement()
 		}
 		}
 	}
+
 }
 
 void Level::spawn_rocks()
@@ -101,9 +106,9 @@ void Level::spawn_rocks()
 void Level::update()
 {
 	MovePlayer(CreateMovementVector());
-	spawn_fire();
-	spawn_rocks();
+	spawn_laser();
 	Object_movement();
+	spawn_rocks();
 	
 }
 
