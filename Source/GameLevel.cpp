@@ -9,7 +9,7 @@ Vector2i Level::CreateMovementVector()
 	int LRMV = IsKeyDown(KEY_RIGHT) - IsKeyDown(KEY_LEFT);
 	int UDMV = IsKeyDown(KEY_DOWN) - IsKeyDown(KEY_UP);
 
-	return Vector2i(LRMV, UDMV);
+	return Vector2i(LRMV,UDMV);
 }
 
 void Level::MovePlayer(Vector2i CreateMovementVector)
@@ -24,12 +24,18 @@ void Level::spawn_fire()
 {
 	Entity laser;
 	
-	if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON))
+	if (IsKeyDown(KEY_Z))
 	{
-		laser.Position = entities[0].Position;
-		laser.kind = EntityKind::LASER;
+		laser_charge_timer++;
+		if (laser_charge_timer == 120)
+		{
+			laser.Position = entities[0].Position;
+			laser.kind = EntityKind::LASER;
 
-		entities.push_back(laser);
+			entities.push_back(laser);
+
+			laser_charge_timer = 0;
+		}
 	}
 }
 
@@ -41,7 +47,22 @@ void Level::Object_movement()
 		{
 		case(EntityKind::LASER):
 		{
-			e.Position.y -= static_cast<int>(TRAVEL_DIRECTION_Y * TRAVEL_SPEED_LASER);
+			e.Position.x = entities[0].Position.x;
+
+			if (IsKeyDown(KEY_Z))
+			{
+				e.Position.y = entities[0].Position.y;	
+			}
+			if (!IsKeyDown(KEY_Z))
+			{
+				e.Position.y -= static_cast<int>(TRAVEL_DIRECTION_Y * TRAVEL_SPEED_LASER);
+			}
+
+			if (e.Position != entities[0].Position)
+			{
+				e.Position.y -= static_cast<int>(TRAVEL_DIRECTION_Y * TRAVEL_SPEED_LASER);
+			}
+			
 			break;
 		}
 

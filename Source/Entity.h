@@ -32,6 +32,7 @@ public:
 	Vector2i CreateMovementVector();
 	void MovePlayer(Vector2i CreateMovementVector);
 	int index = 0;
+	int laser_charge_timer = 0;
 
 	void spawn_fire();
 	void spawn_rocks();
