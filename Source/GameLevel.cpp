@@ -34,7 +34,7 @@ void Level::spawn_ship()
 	Entity player;
 
 	player.Position = { 40,40 };
-	player.kind = EntityKind::PLAYER;
+	player.kind = EntityKind::SHIP;
 
 	add_entity(player);
 }
@@ -48,7 +48,7 @@ void Level::spawn_laser()
 	{
 		laser_charge_timer++;
 
-		if (laser_charge_timer == 120)
+		if (laser_charge_timer == 100)
 		{
 			laser_charged = true;
 		}
@@ -91,22 +91,48 @@ void Level::Object_movement()
 
 void Level::spawn_rocks()
 {
-	Entity rocks;
-
-	
+	Entity rocks;	
 
 	index++;
 
-	if (index == 120)
+	if (index == 30)
 	{
 		rocks.Position.x = GetRandomValue(0, 80);
-
 		rocks.Position.y = 0;
 		rocks.kind = EntityKind::ROCKS;
 
 		add_entity(rocks);
 
+		
+	}
+	if (index == 60)
+	{
+		rocks.Position.x = GetRandomValue(0, 80);
+		rocks.Position.y = 0;
+		rocks.kind = EntityKind::ROCKS;
+
+		add_entity(rocks);
 		index = 0;
+	}
+}
+
+void Level::ShipCollision()
+{
+	for (auto& e : all_entities)
+	{
+		switch (e->kind)
+		{
+		case(EntityKind::ROCKS):
+			{
+			if (e->Position == all_entities[0]->Position)
+			{
+				ShipCollided = true;
+				
+
+			}
+			break;
+			}
+		}
 
 		
 	}
@@ -118,6 +144,7 @@ void Level::update()
 	spawn_laser();
 	Object_movement();
 	spawn_rocks();
+	ShipCollision();
 	
 }
 

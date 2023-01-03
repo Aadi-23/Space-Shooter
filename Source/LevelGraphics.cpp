@@ -2,11 +2,13 @@
 
 void Level::render()
 {
+	
 	for (auto& e : all_entities)
 	{
+		DrawText(TextFormat("Score : %i", score), 350, 10, 25, WHITE);
 		switch (e->kind)
 		{
-		case(EntityKind::PLAYER):
+		case(EntityKind::SHIP):
 			DrawRectangle(e->Position.x * 10, e->Position.y * 10, 40, 40, RED);
 
 			break;

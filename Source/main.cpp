@@ -27,7 +27,7 @@
 // Program main entry point
 //------------------------------------------------------------------------------------
 
-typedef enum GameManager { TitleScreen = 0, GameScreen, GameOver } GameManager;
+typedef enum GameManager { TitleScreen = 0, GameScreen };
 
 
 int main(void)
@@ -96,16 +96,15 @@ int main(void)
 
             EndDrawing();
 
+            if (gamelevel.ShipCollided == true)
+            {
+                currentscreen = TitleScreen;
+                gamelevel.ShipCollided = false;
+            }
+
             break;
         }
-        
-
-        case(GameOver):
-        {
-
-            break;
-        }
-       
+ 
         }
         //----------------------------------------------------------------------------------
     }

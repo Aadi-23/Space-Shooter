@@ -7,7 +7,7 @@
 enum class EntityKind
 {
 	NONE = 0,
-	PLAYER,
+	SHIP,
 	LASER,
 	ROCKS,
 	COINS,
@@ -20,7 +20,7 @@ class Entity
 public:
 	
 	EntityKind kind = {};
-	Vector2i Position;
+	Vector2i Position = { 0,0 };
 };
 
 
@@ -41,12 +41,15 @@ public:
 	int index = 0;
 	int laser_charge_timer = 0;
 	bool laser_charged = false;
+	int score = 0;
+
+	bool ShipCollided = false;
 
 	void spawn_ship();
 	void spawn_laser();
 	void spawn_rocks();
 	void Object_movement();
-	
+	void ShipCollision();
 
 	void update();
 
