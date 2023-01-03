@@ -43,7 +43,7 @@ int main(void)
     SetTargetFPS(60);               // Set our game to run at 60 frames-per-second
     GameManager currentscreen = TitleScreen;
     Level gamelevel;
-    Entity Player;
+    gamelevel.spawn_ship();
     //--------------------------------------------------------------------------------------
 
     // Main game loop
@@ -56,6 +56,8 @@ int main(void)
         
         // Draw
         //----------------------------------------------------------------------------------
+
+        
         switch (currentscreen)
         {
         case TitleScreen:
@@ -83,6 +85,8 @@ int main(void)
             BeginDrawing();
 
             ClearBackground(BLACK);
+
+            
 
             gamelevel.render();
 
