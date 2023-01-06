@@ -9,18 +9,18 @@ void Level::render()
 		switch (e->kind)
 		{
 		case(EntityKind::SHIP):
-			DrawRectangle(e->Position.x * 10, e->Position.y * 10, 40, 40, RED);
+			DrawCircle(e->Position.x , e->Position.y , e->Raidus, RED);
 
 			break;
 
 		case(EntityKind::LASER):
 
-			DrawRectangle(e->Position.x * 10 + 10, e->Position.y * 10, 20, 20, ORANGE);
+			DrawCircle(e->Position.x +10, e->Position.y, e->Raidus, ORANGE);
 			break;
 
 		case(EntityKind::ROCKS):
 
-			DrawRectangle(e->Position.x * 10, e->Position.y * 10, 40, 40, GRAY);
+			DrawCircle(e->Position.x , e->Position.y, e->Raidus, GRAY);
 			break;
 		}
 		

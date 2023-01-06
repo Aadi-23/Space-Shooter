@@ -27,7 +27,7 @@
 // Program main entry point
 //------------------------------------------------------------------------------------
 
-typedef enum GameManager { TitleScreen = 0, GameScreen };
+typedef enum GameManager { TitleScreen = 0, GameScreen }GameManager;
 
 
 int main(void)
@@ -35,7 +35,7 @@ int main(void)
     // Initialization
     //--------------------------------------------------------------------------------------
     const int screenWidth = 800;
-    const int screenHeight = 650;
+    const int screenHeight = 450;
 
 
     

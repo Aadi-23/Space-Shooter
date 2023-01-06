@@ -3,7 +3,6 @@
 #include "Constants.h"
 #include <list>
 
-
 enum class EntityKind
 {
 	NONE = 0,
@@ -21,6 +20,10 @@ public:
 	
 	EntityKind kind = {};
 	Vector2i Position = { 0,0 };
+
+	float Raidus = 0;
+
+	bool dead = false;
 };
 
 
@@ -45,6 +48,7 @@ public:
 
 	bool ShipCollided = false;
 
+	void removeDeadEntities();
 	void spawn_ship();
 	void spawn_laser();
 	void spawn_rocks();
