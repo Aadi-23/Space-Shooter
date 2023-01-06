@@ -34,8 +34,8 @@ int main(void)
 {    
     // Initialization
     //--------------------------------------------------------------------------------------
-    const int screenWidth = 800;
-    const int screenHeight = 450;
+    const int screenWidth = 600;
+    const int screenHeight = 580;
 
 
     
@@ -43,6 +43,9 @@ int main(void)
     SetTargetFPS(60);               // Set our game to run at 60 frames-per-second
     GameManager currentscreen = TitleScreen;
     Level gamelevel;
+    ResourceManager resources;
+
+    resources.LoadResources();
     gamelevel.spawn_ship();
     //--------------------------------------------------------------------------------------
 
@@ -66,9 +69,9 @@ int main(void)
 
             ClearBackground(GRAY);
 
-            DrawText("Shoot Rock", 260, 100, 50, LIGHTGRAY);
-            DrawText("Game By 'Adarsh'", 300, 200, 25, RED);
-            DrawText("Press ENTER to Start", 200, 350, 40, RAYWHITE);
+            DrawText("Shoot Rock", 180, 100, 50, LIGHTGRAY);
+            DrawText("Game By 'Adarsh'", 210, 200, 25, RED);
+            DrawText("Press ENTER to Start", 100, 350, 40, RAYWHITE);
 
             EndDrawing();
 
@@ -88,7 +91,7 @@ int main(void)
 
             
 
-            gamelevel.render();
+            gamelevel.render(resources.texture);
 
             gamelevel.update();
 

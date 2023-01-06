@@ -2,6 +2,7 @@
 #include <vector>
 #include "Constants.h"
 #include <list>
+#include "ResourceManager.h"
 
 enum class EntityKind
 {
@@ -38,7 +39,7 @@ class Level
 
 public:
 	
-	void render();
+	void render(Textures &texture);
 	Vector2i CreateMovementVector();
 	void MovePlayer(Vector2i CreateMovementVector);
 	void add_entity(const Entity & entities);

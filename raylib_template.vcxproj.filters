@@ -24,13 +24,19 @@
     <ClCompile Include="Source\LevelGraphics.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Source\ResourceManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Source\Entity.h">
-      <Filter>Source Files</Filter>
+    <ClInclude Include="Source\Constants.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\GameLevel.h">
-      <Filter>Source Files</Filter>
+    <ClInclude Include="Source\Entity.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ResourceManager.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

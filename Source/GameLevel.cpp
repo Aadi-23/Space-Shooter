@@ -23,7 +23,7 @@ void Level::MovePlayer(Vector2i CreateMovementVector)
 {
 	Vector2i FuturePosition = all_entities[0]->Position + CreateMovementVector;
 	
-	if ((FuturePosition.x > 0) && (FuturePosition.x < 800 - 20) && (FuturePosition.y > 0) && (FuturePosition.y < 450 - 20))
+	if ((FuturePosition.x > 0) && (FuturePosition.x < 600 - 20) && (FuturePosition.y > 0) && (FuturePosition.y < 580 - 20))
 	{
 		all_entities[0]->Position = FuturePosition;
 	}
@@ -106,7 +106,7 @@ void Level::spawn_rocks()
 
 	if (index == 30)
 	{
-		rocks.Position.x = GetRandomValue(0, 800);
+		rocks.Position.x = GetRandomValue(0, 600);
 		rocks.Position.y = 0;
 		rocks.kind = EntityKind::ROCKS;
 		rocks.Raidus = 12;
@@ -117,7 +117,7 @@ void Level::spawn_rocks()
 	}
 	if (index == 60)
 	{
-		rocks.Position.x = GetRandomValue(0, 800);
+		rocks.Position.x = GetRandomValue(0, 600);
 		rocks.Position.y = 0;
 		rocks.kind = EntityKind::ROCKS;
 		rocks.Raidus = 12;
