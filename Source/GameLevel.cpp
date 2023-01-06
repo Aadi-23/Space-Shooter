@@ -16,6 +16,7 @@ void Level::add_entity(const Entity &entities)
 {
 	EntitiesInList.push_back(entities);
 	all_entities.push_back(&EntitiesInList.back());
+	
 }
 
 void Level::MovePlayer(Vector2i CreateMovementVector)
@@ -49,7 +50,7 @@ void Level::spawn_laser()
 	{
 		laser_charge_timer++;
 
-		if (laser_charge_timer == 100)
+		if (laser_charge_timer == 60)
 		{
 			laser_charged = true;
 		}
@@ -63,6 +64,7 @@ void Level::spawn_laser()
 		laser.Raidus = 10;
 
 		add_entity(laser);
+		
 		laser_charged = false;
 		laser_charge_timer = 0;
 	}
@@ -77,6 +79,11 @@ void Level::Object_movement()
 		case(EntityKind::LASER):
 		{
 			e->Position.y -= static_cast<int>(TRAVEL_DIRECTION_Y * TRAVEL_SPEED_LASER);
+
+			if (e->Position.y <= 0)
+			{
+				e->dead = true;
+			}
 
 			break;
 		}
@@ -120,21 +127,69 @@ void Level::spawn_rocks()
 	}
 }
 
+void Level::spawn_coins(Vector2i &SpawnPos)
+{
+	Entity coin;
+
+	coin.Position = SpawnPos;
+	coin.Position.y = 0;
+	coin.Raidus = 5;
+
+	coin.kind = EntityKind::COINS;
+
+	add_entity(coin);
+
+	
+}
+
 void Level::ShipCollision()
 {
 	for (auto* e : all_entities)
 	{
 		if (e->kind == EntityKind::ROCKS)
 		{
-			int a = (e->Raidus + all_entities[0]->Raidus);
+			int a = static_cast<int>(e->Raidus + all_entities[0]->Raidus);
 			int y = abs(e->Position.x - all_entities[0]->Position.x);
 			int h = abs(e->Position.y - all_entities[0]->Position.y);
 
-			if ( (a^2) >=  (y^2) + (h^2) )
+			if ((a ^ 2) >= (y ^ 2) + (h ^ 2))
 			{
-				score++;
+				ShipCollided = true;
+				
 			}
 		}
+
+	}
+}
+
+void Level::LaserRockCollision()
+{
+	for (Entity* e : all_entities)
+	{
+		if(e->kind == EntityKind::LASER)
+		{
+			for (Entity* rock : all_entities)
+			{
+				if (rock->kind == EntityKind::ROCKS)
+				{
+					int a = static_cast<int>(e->Raidus + rock->Raidus);
+					int y = abs(e->Position.x - rock->Position.x);
+					int h = abs(e->Position.y - rock->Position.y);
+
+					if ((a ^ 2) >= (y ^ 2) + (h ^ 2))
+					{
+						score += 1;
+
+						spawn_coins(e->Position);
+					}
+				}
+
+
+			}
+
+		}
+				
+		
 		
 	}
 }
@@ -147,6 +202,16 @@ void Level::removeDeadEntities()
 	EntitiesInList.remove_if([](const Entity& e)-> bool { return e.dead; });
 }
 
+void Level::ResetLevel()
+{
+	ShipCollided = false;
+	EntitiesInList.clear();
+	all_entities.clear();
+	score = 0;
+
+	spawn_ship();
+}
+
 void Level::update()
 {
 	MovePlayer(CreateMovementVector());
@@ -154,6 +219,7 @@ void Level::update()
 	Object_movement();
 	spawn_rocks();
 	ShipCollision();
+	LaserRockCollision();
 
 	removeDeadEntities();
 	

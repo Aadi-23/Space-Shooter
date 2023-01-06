@@ -37,6 +37,7 @@ class Level
 	
 
 public:
+	
 	void render();
 	Vector2i CreateMovementVector();
 	void MovePlayer(Vector2i CreateMovementVector);
@@ -51,9 +52,13 @@ public:
 	void removeDeadEntities();
 	void spawn_ship();
 	void spawn_laser();
+	void spawn_coins(Vector2i& SpawnPos);
 	void spawn_rocks();
 	void Object_movement();
 	void ShipCollision();
+	void LaserRockCollision();
+	void ResetLevel();
+
 
 	void update();
 

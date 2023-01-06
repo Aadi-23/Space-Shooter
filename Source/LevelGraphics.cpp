@@ -22,6 +22,10 @@ void Level::render()
 
 			DrawCircle(e->Position.x , e->Position.y, e->Raidus, GRAY);
 			break;
+		case(EntityKind::COINS):
+
+			DrawCircle(e->Position.x, e->Position.y, e->Raidus, YELLOW);
+			break;
 		}
 		
 

@@ -93,14 +93,15 @@ int main(void)
             gamelevel.update();
 
             
-
             EndDrawing();
 
             if (gamelevel.ShipCollided == true)
             {
                 currentscreen = TitleScreen;
-                gamelevel.ShipCollided = false;
+                gamelevel.ResetLevel();
+                
             }
+
 
             break;
         }

@@ -1,3 +1,2 @@
 ﻿  GameLevel.cpp
-C:\Users\student-168\Desktop\Assignment-2\Source\GameLevel.cpp(129,10): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
   raylib_template.vcxproj -> C:\Users\student-168\Desktop\Assignment-2\Build\Debug\raylib_template.exe
