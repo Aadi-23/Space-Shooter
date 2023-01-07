@@ -1,4 +1,4 @@
-#include "Entity.h"
+#include "Level.h"
 
 
 void Level::render(Textures & texture)
@@ -17,16 +17,17 @@ void Level::render(Textures & texture)
 
 		case(EntityKind::LASER):
 
-			DrawCircle(e->Position.x +10, e->Position.y, e->Raidus, ORANGE);
+			DrawTexture(texture.Laser, e->Position.x - 14, e->Position.y - 14, WHITE);
 			break;
 
 		case(EntityKind::ROCKS):
 
-			DrawCircle(e->Position.x , e->Position.y, e->Raidus, GRAY);
+			DrawTexture(texture.Rocks, e->Position.x - 15 , e->Position.y - 15, WHITE);
 			break;
+
 		case(EntityKind::COINS):
 
-			DrawCircle(e->Position.x, e->Position.y, e->Raidus, YELLOW);
+			DrawTexture(texture.Coins, e->Position.x - 5, e->Position.y - 10, WHITE);
 			break;
 		}
 		

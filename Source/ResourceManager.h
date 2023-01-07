@@ -3,6 +3,9 @@
 struct Textures
 {
 	Texture2D Ship;
+	Texture2D Rocks;
+	Texture2D Laser;
+	Texture2D Coins;
 };
 
 
