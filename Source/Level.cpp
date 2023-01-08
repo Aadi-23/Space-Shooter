@@ -47,6 +47,7 @@ void Level::spawn_ship()
 	player.Position = { 400,400 };
 	player.kind = EntityKind::SHIP;
 	player.Raidus = 20;
+	player.dead = false;
 
 
 	add_entity(player);
@@ -73,6 +74,7 @@ void Level::spawn_laser()
 		laser.Position = all_entities[0]->Position;
 		laser.kind = EntityKind::LASER;
 		laser.Raidus = 10;
+		laser.dead = false;
 
 		add_entity(laser);
 		
@@ -80,9 +82,31 @@ void Level::spawn_laser()
 		laser_charge_timer = 0;
 	}
 
-	if (IsKeyPressed(KEY_SPACE))
+	
+
+}
+
+void Level::spawn_rocks()
+{
+	Entity rocks;	
+
+	index++;
+
+	rocks.Position.x = GetRandomValue(10, 590);
+	rocks.Position.y = 0;
+	rocks.kind = EntityKind::ROCKS;
+	rocks.Raidus = 12;
+	rocks.dead = false;
+
+
+	if (index == 30)
 	{
-		spawn_coins(laser.Position);
+		add_entity(rocks);	
+	}
+	else if (index > 60)
+	{
+		add_entity(rocks);
+		index = 0;
 	}
 }
 
@@ -96,7 +120,7 @@ void Level::Object_movement()
 		{
 			e->Position.y -= static_cast<int>(TRAVEL_DIRECTION_Y * TRAVEL_SPEED_LASER);
 
-			if (e->Position.y <= 0)
+			if (e->Position.y == 0)
 			{
 				e->dead = true;
 			}
@@ -120,46 +144,25 @@ void Level::Object_movement()
 
 }
 
-void Level::spawn_rocks()
-{
-	Entity rocks;	
-
-	index++;
-
-	if (index == 30)
-	{
-		rocks.Position.x = GetRandomValue(0, 600);
-		rocks.Position.y = 0;
-		rocks.kind = EntityKind::ROCKS;
-		rocks.Raidus = 12;
-
-		add_entity(rocks);
-
-		
-	}
-	if (index == 60)
-	{
-		rocks.Position.x = GetRandomValue(0, 600);
-		rocks.Position.y = 0;
-		rocks.kind = EntityKind::ROCKS;
-		rocks.Raidus = 12;
-
-		add_entity(rocks);
-		index = 0;
-	}
-}
 
 void Level::spawn_coins(Vector2i &SpawnPos)
 {
 	Entity coin;
 
-	coin.Position = { 400,200 };
+	
+	coin.Position.x = SpawnPos.x;
+	coin.Position.y = SpawnPos.y;
 	
 	coin.Raidus = 5;
 
 	coin.kind = EntityKind::COINS;
+	coin.dead = false; 
 
-	add_entity(coin);
+	for(int i = 0; i<5; i++)
+	{
+		add_entity(coin);
+	}
+	
 
 	
 }
@@ -168,30 +171,35 @@ void Level::ShipCollision()
 {
 	for (auto* e : all_entities)
 	{
-		if (e->kind == EntityKind::ROCKS)
+		switch (e->kind)
 		{
-			int a = static_cast<int>(e->Raidus + all_entities[0]->Raidus);
-			int y = abs(e->Position.x - all_entities[0]->Position.x);
-			int h = abs(e->Position.y - all_entities[0]->Position.y);
-
-			if ((a ^ 2) >= (y ^ 2) + (h ^ 2))
+		case (EntityKind::ROCKS):
 			{
-				ShipCollided = true;
-				
+				int a = static_cast<int>(e->Raidus + all_entities[0]->Raidus);
+				int y = abs(e->Position.x - all_entities[0]->Position.x);
+				int h = abs(e->Position.y - all_entities[0]->Position.y);
+
+				if ((a ^ 2) >= (y ^ 2) + (h ^ 2))
+				{
+					ShipCollided = true;
+
+				}
 			}
-		}
+			break;
 
-		if (e->kind == EntityKind::COINS)
-		{
-			int a = static_cast<int>(e->Raidus + all_entities[0]->Raidus);
-			int y = abs(e->Position.x - all_entities[0]->Position.x);
-			int h = abs(e->Position.y - all_entities[0]->Position.y);
-
-			if ((a ^ 2) >= (y ^ 2) + (h ^ 2))
+		case (EntityKind::COINS):
 			{
-				score += 1;
-				e->dead = true;
+				int a = static_cast<int>(e->Raidus + all_entities[0]->Raidus);
+				int y = abs(e->Position.x - all_entities[0]->Position.x);
+				int h = abs(e->Position.y - all_entities[0]->Position.y);
+
+				if ((a ^ 2) >= (y ^ 2) + (h ^ 2))
+				{
+					score += 1;
+					e->dead = true;
+				}
 			}
+			break;
 		}
 
 	}
@@ -203,19 +211,20 @@ void Level::LaserRockCollision()
 	{
 		if(e->kind == EntityKind::LASER)
 		{
-			for (Entity* rock : all_entities)
+			for (Entity* e_rock : all_entities)
 			{
-				if (rock->kind == EntityKind::ROCKS)
+				if (e_rock->kind == EntityKind::ROCKS)
 				{
-					int a = static_cast<int>(e->Raidus + rock->Raidus);
-					int y = abs(e->Position.x - rock->Position.x);
-					int h = abs(e->Position.y - rock->Position.y);
+					int a = static_cast<int>(e->Raidus + e_rock->Raidus);
+					int y = abs(e->Position.x - e_rock->Position.x);
+					int h = abs(e->Position.y - e_rock->Position.y);
 
 					if ((a ^ 2) >= (y ^ 2) + (h ^ 2))
 					{
-						rock->dead = true;
-						e->dead = true;
+						//PlaySoundMulti(resources.sound.RockBlast);
 						//spawn_coins(e->Position);
+						e_rock->dead = true;
+						e->dead = true;
 					}
 				}
 
@@ -251,8 +260,8 @@ void Level::update()
 {
 	MovePlayer(CreateMovementVector());
 	spawn_laser();
-	Object_movement();
 	spawn_rocks();
+	Object_movement();
 	ShipCollision();
 	LaserRockCollision();
 

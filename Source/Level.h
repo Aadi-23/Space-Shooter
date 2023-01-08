@@ -16,6 +16,7 @@ class Level
 
 
 public:
+	ResourceManager resources;
 
 	void render(Textures& texture);
 	Vector2i CreateMovementVector();
@@ -31,8 +32,8 @@ public:
 	void removeDeadEntities();
 	void spawn_ship();
 	void spawn_laser();
-	void spawn_coins(Vector2i& SpawnPos);
 	void spawn_rocks();
+	void spawn_coins(Vector2i& SpawnPos);
 	void Object_movement();
 	void ShipCollision();
 	void LaserRockCollision();

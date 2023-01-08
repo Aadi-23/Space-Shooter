@@ -10,8 +10,22 @@ void Level::render(Textures & texture)
 		switch (e->kind)
 		{
 		case(EntityKind::SHIP):
-			DrawCircle(e->Position.x , e->Position.y , e->Raidus,WHITE);
-			DrawTexture(texture.Ship, e->Position.x - 20,e->Position.y - 20, WHITE);
+
+			if (IsKeyDown(KEY_Z))
+			{
+				if (laser_charge_timer < 30)
+				{
+					DrawTexture(texture.ShipAnim1, e->Position.x - 25, e->Position.y - 50, WHITE);
+			    }
+			    if(laser_charge_timer >= 30)
+				{
+					DrawTexture(texture.ShipAnim2, e->Position.x - 25, e->Position.y - 50, WHITE);
+				}
+			}
+			else
+			{
+				DrawTexture(texture.Ship, e->Position.x - 25, e->Position.y - 50, WHITE);
+			}
 
 			break;
 
