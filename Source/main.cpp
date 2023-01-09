@@ -23,11 +23,9 @@
 
 #include "raylib.h"
 #include "Level.h"
-//------------------------------------------------------------------------------------
-// Program main entry point
-//------------------------------------------------------------------------------------
 
-typedef enum GameManager { TitleScreen = 0, GameScreen }GameManager;
+
+typedef enum GameManager { TitleScreen = 0, GameScreen, GameEndScreen }GameManager;
 
 
 int main(void)
@@ -50,20 +48,11 @@ int main(void)
 
     resources.LoadResources();
     gamelevel.spawn_ship();
-    //--------------------------------------------------------------------------------------
+  
 
-    // Main game loop
+    
     while (!WindowShouldClose())    // Detect window close button or ESC key
     {
-        // Update
-        //----------------------------------------------------------------------------------
-        // TODO: Update your variables here
-        //----------------------------------------------------------------------------------
-        
-        // Draw
-        //----------------------------------------------------------------------------------
-
-        
         switch (currentscreen)
         {
         case TitleScreen:
@@ -103,26 +92,41 @@ int main(void)
 
             if (gamelevel.ShipCollided == true)
             {
-                currentscreen = TitleScreen;
-                gamelevel.ResetLevel();
+                currentscreen = GameEndScreen;
+               
                 
             }
 
 
             break;
         }
+        case(GameEndScreen):
+        {
+            BeginDrawing();
+
+            ClearBackground(BLACK);
+
+            DrawText(TextFormat("Score : %i", gamelevel.score), 220, 200, 40, WHITE);
+            DrawText("Press R to Go to HomeScreen", 90, 300, 30, RAYWHITE);
+            if (IsKeyPressed(KEY_R))
+            {
+                currentscreen = TitleScreen;
+                gamelevel.ResetLevel();
+            }
+
+            EndDrawing();
+        }
  
         }
-        //----------------------------------------------------------------------------------
     }
 
     CloseAudioDevice();
     
     resources.UnloadResources();
 
-    //--------------------------------------------------------------------------------------
+   
     CloseWindow();        // Close window and OpenGL context
-    //--------------------------------------------------------------------------------------
+  
 
     return 0;
 }

@@ -164,12 +164,14 @@
     <ClCompile Include="Source\Level.cpp" />
     <ClCompile Include="Source\LevelGraphics.cpp" />
     <ClCompile Include="Source\main.cpp" />
+    <ClCompile Include="Source\Menu.cpp" />
     <ClCompile Include="Source\ResourceManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Constants.h" />
     <ClInclude Include="Source\Entity.h" />
     <ClInclude Include="Source\Level.h" />
+    <ClInclude Include="Source\Menu.h" />
     <ClInclude Include="Source\ResourceManager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

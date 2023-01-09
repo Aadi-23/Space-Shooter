@@ -14,8 +14,8 @@ class Level
 
 	std::vector<Entity*> all_entities = {};
 
-
 public:
+
 	ResourceManager resources;
 
 	void render(Textures& texture);
@@ -33,7 +33,7 @@ public:
 	void spawn_ship();
 	void spawn_laser();
 	void spawn_rocks();
-	void spawn_coins(Vector2i& SpawnPos);
+	void spawn_coins(Vector2i SpawnPos);
 	void Object_movement();
 	void ShipCollision();
 	void LaserRockCollision();

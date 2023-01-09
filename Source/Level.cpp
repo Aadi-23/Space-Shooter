@@ -120,7 +120,7 @@ void Level::Object_movement()
 		{
 			e->Position.y -= static_cast<int>(TRAVEL_DIRECTION_Y * TRAVEL_SPEED_LASER);
 
-			if (e->Position.y == 0)
+			if (e->Position.y <= 0)
 			{
 				e->dead = true;
 			}
@@ -131,12 +131,23 @@ void Level::Object_movement()
 		case(EntityKind::ROCKS):
 		{
 			e->Position.y += static_cast<int>(TRAVEL_DIRECTION_Y * TRAVEL_SPEED_ROCKS);
+
+			if (e->Position.y == 580)
+			{
+				e->dead = true;
+			}
+
 			break;
 		}
 
 		case(EntityKind::COINS):
 		{
 			e->Position.y += static_cast<int>(TRAVEL_DIRECTION_Y * TRAVEL_SPEED_COIN);
+
+			if (e->Position.y == 580)
+			{
+				e->dead = true;
+			}
 			break;
 		}
 		}
@@ -145,21 +156,22 @@ void Level::Object_movement()
 }
 
 
-void Level::spawn_coins(Vector2i &SpawnPos)
+void Level::spawn_coins(Vector2i SpawnPos)
 {
 	Entity coin;
 
 	
-	coin.Position.x = SpawnPos.x;
-	coin.Position.y = SpawnPos.y;
 	
-	coin.Raidus = 5;
-
-	coin.kind = EntityKind::COINS;
-	coin.dead = false; 
 
 	for(int i = 0; i<5; i++)
 	{
+		coin.Position.x = SpawnPos.x + GetRandomValue(0, 5);
+		coin.Position.y = SpawnPos.y + GetRandomValue(0, 5);
+
+		coin.Raidus = 5;
+
+		coin.kind = EntityKind::COINS;
+		coin.dead = false;
 		add_entity(coin);
 	}
 	
@@ -209,30 +221,40 @@ void Level::LaserRockCollision()
 {
 	for (Entity* e : all_entities)
 	{
-		if(e->kind == EntityKind::LASER)
+		switch (e->kind)
 		{
-			for (Entity* e_rock : all_entities)
+		case(EntityKind::LASER):
 			{
-				if (e_rock->kind == EntityKind::ROCKS)
+				for (Entity* e_rock : all_entities)
 				{
-					int a = static_cast<int>(e->Raidus + e_rock->Raidus);
-					int y = abs(e->Position.x - e_rock->Position.x);
-					int h = abs(e->Position.y - e_rock->Position.y);
-
-					if ((a ^ 2) >= (y ^ 2) + (h ^ 2))
+					if (e_rock->kind == EntityKind::ROCKS)
 					{
-						//PlaySoundMulti(resources.sound.RockBlast);
-						//spawn_coins(e->Position);
-						e_rock->dead = true;
-						e->dead = true;
+						int a = static_cast<int>(e->Raidus + e_rock->Raidus);
+						int y = abs(e->Position.x - e_rock->Position.x);
+						int h = abs(e->Position.y - e_rock->Position.y);
+
+						if ((a ^ 2) >= (y ^ 2) + (h ^ 2))
+						{
+							//PlaySoundMulti(resources.sound.RockBlast);
+							//spawn_coins(e_rock->Position);
+							e_rock->dead = true;
+
+							score += 10;
+
+						}
+						
+						
 					}
+
+					
 				}
 
-
 			}
+			break;
 
+			
+		
 		}
-				
 		
 		
 	}
