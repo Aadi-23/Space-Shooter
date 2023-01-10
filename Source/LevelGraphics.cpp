@@ -43,6 +43,11 @@ void Level::render(Textures & texture)
 
 			DrawTexture(texture.Coins, e->Position.x - 5, e->Position.y - 10, WHITE);
 			break;
+
+		case(EntityKind::PARTICLES):
+			DrawCircle(e->Position.x, e->Position.y, e->Raidus, WHITE);
+
+			break;
 		}
 		
 

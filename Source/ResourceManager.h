@@ -19,8 +19,8 @@ struct Sounds
 class ResourceManager
 {
 public:
-	Textures texture;
-	Sounds sound;
-	void LoadResources();
-	void UnloadResources();
+	static Textures texture;
+	static Sounds sound;
+	static void LoadResources();
+	static void UnloadResources();
 };

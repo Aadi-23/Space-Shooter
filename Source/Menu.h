@@ -1,4 +1,5 @@
 #include <stack>
+#include<iostream>
 
 
 
@@ -9,10 +10,13 @@ enum class State
 	OPTIONS
 };
 
-class GameMenu
+class Game
 {
 public:
+
+	bool Isrunning = true;
+	State state;
 	std::stack<State>states;
 
-	void Do_main_frame();
+	void Do_mainmenu_frame();
 };

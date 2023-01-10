@@ -8,6 +8,7 @@ enum class EntityKind
 	LASER,
 	ROCKS,
 	COINS,
+	PARTICLES,
 };
 ;
 

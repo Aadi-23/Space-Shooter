@@ -1,5 +1,7 @@
 #include "ResourceManager.h"
 
+Textures ResourceManager::texture;
+Sounds ResourceManager::sound;
 void ResourceManager::LoadResources()
 {
      texture.Ship = LoadTexture("./Resources/Textures/Ship.png");

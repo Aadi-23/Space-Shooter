@@ -22,12 +22,19 @@ Vector2i Level::CreateMovementVector()
 	
 }
 
-void Level::add_entity(const Entity &entities)
+void Level::add_temp_entity(const Entity &entities)
+{
+	EntitiesInList.push_back(entities);
+	temp_entities.push_back(&EntitiesInList.back());
+}
+
+void Level::add_start_entity(const Entity& entities)
 {
 	EntitiesInList.push_back(entities);
 	all_entities.push_back(&EntitiesInList.back());
-	
+
 }
+
 
 void Level::MovePlayer(Vector2i CreateMovementVector)
 {
@@ -50,14 +57,34 @@ void Level::spawn_ship()
 	player.dead = false;
 
 
-	add_entity(player);
+	add_temp_entity(player);
 }
 
 void Level::spawn_laser()
 {
 	Entity laser;
-	
-	
+	laser.Position = all_entities[0]->Position;
+	laser.kind = EntityKind::LASER;
+	laser.Raidus = 10;
+	laser.dead = false;
+
+	add_temp_entity(laser);
+}
+
+void Level::spawn_rocks()
+{
+	Entity rocks;	
+
+	rocks.Position.x = GetRandomValue(10, 590);
+	rocks.Position.y = 0;
+	rocks.kind = EntityKind::ROCKS;
+	rocks.Raidus = 12;
+	rocks.dead = false;
+	add_temp_entity(rocks);
+}
+
+void Level::PlayerInput()
+{
 	if (IsKeyDown(KEY_Z))
 	{
 		laser_charge_timer++;
@@ -66,47 +93,14 @@ void Level::spawn_laser()
 		{
 			laser_charged = true;
 		}
-		
+
 	}
 
-	if(IsKeyReleased(KEY_Z) && laser_charged == true)
-	{
-		laser.Position = all_entities[0]->Position;
-		laser.kind = EntityKind::LASER;
-		laser.Raidus = 10;
-		laser.dead = false;
-
-		add_entity(laser);
-		
+	if (IsKeyReleased(KEY_Z) && laser_charged == true)
+	{	
+		spawn_laser();
 		laser_charged = false;
 		laser_charge_timer = 0;
-	}
-
-	
-
-}
-
-void Level::spawn_rocks()
-{
-	Entity rocks;	
-
-	index++;
-
-	rocks.Position.x = GetRandomValue(10, 590);
-	rocks.Position.y = 0;
-	rocks.kind = EntityKind::ROCKS;
-	rocks.Raidus = 12;
-	rocks.dead = false;
-
-
-	if (index == 30)
-	{
-		add_entity(rocks);	
-	}
-	else if (index > 60)
-	{
-		add_entity(rocks);
-		index = 0;
 	}
 }
 
@@ -150,6 +144,18 @@ void Level::Object_movement()
 			}
 			break;
 		}
+
+		case(EntityKind::PARTICLES):
+		{
+			e->Position.y += static_cast<int>(TRAVEL_DIRECTION_Y * TRAVEL_SPEED_PARTICLE);
+
+			e->Position.x += 1;
+
+			if (e->Position.y == 580)
+			{
+				e->dead = true;
+			}
+		}
 		}
 	}
 
@@ -165,14 +171,14 @@ void Level::spawn_coins(Vector2i SpawnPos)
 
 	for(int i = 0; i<5; i++)
 	{
-		coin.Position.x = SpawnPos.x + GetRandomValue(0, 5);
-		coin.Position.y = SpawnPos.y + GetRandomValue(0, 5);
+		coin.Position.x = SpawnPos.x + GetRandomValue(0, 60);
+		coin.Position.y = SpawnPos.y - GetRandomValue(0, 60);
 
 		coin.Raidus = 5;
 
 		coin.kind = EntityKind::COINS;
 		coin.dead = false;
-		add_entity(coin);
+		add_temp_entity(coin);
 	}
 	
 
@@ -235,11 +241,9 @@ void Level::LaserRockCollision()
 
 						if ((a ^ 2) >= (y ^ 2) + (h ^ 2))
 						{
-							//PlaySoundMulti(resources.sound.RockBlast);
-							//spawn_coins(e_rock->Position);
+							PlaySoundMulti(ResourceManager::sound.RockBlast);
+							spawn_coins(e_rock->Position);
 							e_rock->dead = true;
-
-							score += 10;
 
 						}
 						
@@ -260,12 +264,19 @@ void Level::LaserRockCollision()
 	}
 }
 
-void Level::removeDeadEntities()
+void Level::RefreshEntities()
 {
 	auto last_entity = std::remove_if(all_entities.begin(), all_entities.end(), [](const Entity* e)->bool {return e->dead;});
 	all_entities.erase(last_entity, all_entities.end());
 
 	EntitiesInList.remove_if([](const Entity& e)-> bool { return e.dead; });
+
+	while (temp_entities.size() != 0)
+	{
+		all_entities.push_back(temp_entities.back());
+		temp_entities.pop_back();
+	}
+
 }
 
 void Level::ResetLevel()
@@ -278,18 +289,46 @@ void Level::ResetLevel()
 	spawn_ship();
 }
 
+void Level::spawn_particles()
+{
+	Entity particles;
+
+	particles.Position.x = GetRandomValue(10, 590);
+	particles.Position.y = 0;
+	particles.kind = EntityKind::PARTICLES;
+	particles.Raidus = 2;
+	particles.dead = false;
+	add_temp_entity(particles);
+	
+}
+
 void Level::update()
 {
+	index++;
+
+	if (index == 30)
+	{
+		spawn_rocks();
+		
+	}
+	else if (index > 60)
+	{
+		spawn_rocks();
+		
+		index = 0;
+	}
+
+	PlayerInput();
+	RefreshEntities();
 	MovePlayer(CreateMovementVector());
-	spawn_laser();
-	spawn_rocks();
+	
+	spawn_particles();
 	Object_movement();
 	ShipCollision();
 	LaserRockCollision();
 
 	
 
-	removeDeadEntities();
 	
 }
 

@@ -154,6 +154,12 @@ constexpr inline Vector2i operator/(Vector2i a, const Vector2i& b)
 	return a;
 }
 
+constexpr inline Vector2i operator/(Vector2i a, int b)
+{
+	a /= b;
+	return a;
+}
+
 constexpr inline bool operator==(Vector2i a, Vector2i b)
 	{
 	if ((a.x == b.x) && (a.y == b.y)) { return true; }

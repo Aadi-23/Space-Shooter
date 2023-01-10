@@ -23,9 +23,10 @@
 
 #include "raylib.h"
 #include "Level.h"
+#include "Menu.h"
 
 
-typedef enum GameManager { TitleScreen = 0, GameScreen, GameEndScreen }GameManager;
+//typedef enum GameManager {GameScreen, GameEndScreen }GameManager;
 
 
 int main(void)
@@ -40,89 +41,116 @@ int main(void)
     InitWindow(screenWidth, screenHeight, "raylib [core] example - basic window");
     SetTargetFPS(60);  // Set our game to run at 60 frames-per-second
     
+    SetExitKey(0);
+
     InitAudioDevice();
 
-    GameManager currentscreen = TitleScreen;
+    enum struct GameManager{GAMESCREEN, ENDSCREEN};
+    GameManager currentscreen = GameManager::GAMESCREEN;
     Level gamelevel;
-    ResourceManager resources;
+    Game game;
 
-    resources.LoadResources();
+    ResourceManager::LoadResources();
     gamelevel.spawn_ship();
-  
-
     
-    while (!WindowShouldClose())    // Detect window close button or ESC key
+    game.states.push(State::MAIN_MENU);
+    
+    while (game.Isrunning)    // Detect window close button or ESC key
     {
-        switch (currentscreen)
+        if (WindowShouldClose())
         {
-        case TitleScreen:
+            game.Isrunning = false;
+        }
+        
+        State Current_state = game.states.top();
+        switch (Current_state)
+        {
+        case State::MAIN_MENU:
         {
             BeginDrawing();
 
             ClearBackground(GRAY);
 
-            DrawText("Shoot Rock", 180, 100, 50, LIGHTGRAY);
-            DrawText("Game By 'Adarsh'", 210, 200, 25, RED);
-            DrawText("Press ENTER to Start", 100, 350, 40, RAYWHITE);
+            DrawText("Shoot Rock", 150, 60, 50, LIGHTGRAY);
+            DrawText("Game By 'Adarsh'", 200, 120, 25, RED);
+           
+            game.Do_mainmenu_frame();
 
             EndDrawing();
-
-            if (IsKeyPressed(KEY_ENTER))
-            {
-                currentscreen = GameScreen;
-            }
             break;
         }
         
 
-        case GameScreen:
+        case State::GAME:
         {
-            BeginDrawing();
 
-            ClearBackground(BLACK);
-
-            
-
-            gamelevel.render(resources.texture);
-
-            gamelevel.update();
-
-            
-            EndDrawing();
-
-            if (gamelevel.ShipCollided == true)
+            switch (currentscreen)
             {
-                currentscreen = GameEndScreen;
-               
+
+            case(GameManager::GAMESCREEN):
+                {
+                BeginDrawing();
+
+                ClearBackground(BLACK);
+
+
+
+                gamelevel.render(ResourceManager::texture);
+
+                gamelevel.update();
+
+                if (IsKeyPressed(KEY_ESCAPE))
+                {
+                    game.states.pop();
+
+                }
+
+
+                EndDrawing();
+
+                if (gamelevel.ShipCollided == true)
+                {
+                    currentscreen = GameManager::ENDSCREEN;
+
+                }
+                }
+                break;
+
+
+
+            case(GameManager::ENDSCREEN):
+            {
                 
+                BeginDrawing();
+
+                ClearBackground(BLACK);
+
+                DrawText(TextFormat("Score : %i", gamelevel.score), 220, 200, 40, WHITE);
+                DrawText("Press R to Go to MainMenu", 90, 300, 30, RAYWHITE);
+
+                EndDrawing();
+                if (IsKeyPressed(KEY_R))
+                {
+                    game.states.pop();
+                    
+                    gamelevel.ResetLevel();
+                    currentscreen = GameManager::GAMESCREEN;
+
+                }
             }
-
-
+            break;
+            
+            }     
             break;
         }
-        case(GameEndScreen):
-        {
-            BeginDrawing();
-
-            ClearBackground(BLACK);
-
-            DrawText(TextFormat("Score : %i", gamelevel.score), 220, 200, 40, WHITE);
-            DrawText("Press R to Go to HomeScreen", 90, 300, 30, RAYWHITE);
-            if (IsKeyPressed(KEY_R))
-            {
-                currentscreen = TitleScreen;
-                gamelevel.ResetLevel();
-            }
-
-            EndDrawing();
-        }
+  
  
         }
     }
 
     CloseAudioDevice();
     
-    resources.UnloadResources();
+    ResourceManager::UnloadResources();
 
    
     CloseWindow();        // Close window and OpenGL context
