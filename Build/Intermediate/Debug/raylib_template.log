@@ -1,2 +1,4 @@
-﻿  main.cpp
+﻿  Level.cpp
+C:\Users\student-168\Desktop\Assignment-2\Source\Constants.h(5,37): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\student-168\Desktop\Assignment-2\Source\Constants.h(5,34): warning C4244: '+=': conversion from 'float' to 'int', possible loss of data
   raylib_template.vcxproj -> C:\Users\student-168\Desktop\Assignment-2\Build\Debug\raylib_template.exe

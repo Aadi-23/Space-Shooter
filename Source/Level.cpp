@@ -22,6 +22,12 @@ Vector2i Level::CreateMovementVector()
 	
 }
 
+Vector2 Level::random_direction()
+{
+	float angle = GetRandomValue(0, 1) * 2 * PI;
+	return Vector2{ cosf(angle),sinf(angle) };
+}
+
 void Level::add_temp_entity(const Entity &entities)
 {
 	EntitiesInList.push_back(entities);
@@ -53,7 +59,7 @@ void Level::spawn_ship()
 
 	player.Position = { 400,400 };
 	player.kind = EntityKind::SHIP;
-	player.Raidus = 20;
+	player.Radius = 20;
 	player.dead = false;
 
 
@@ -65,7 +71,7 @@ void Level::spawn_laser()
 	Entity laser;
 	laser.Position = all_entities[0]->Position;
 	laser.kind = EntityKind::LASER;
-	laser.Raidus = 10;
+	laser.Radius = 10;
 	laser.dead = false;
 
 	add_temp_entity(laser);
@@ -78,7 +84,7 @@ void Level::spawn_rocks()
 	rocks.Position.x = GetRandomValue(10, 590);
 	rocks.Position.y = 0;
 	rocks.kind = EntityKind::ROCKS;
-	rocks.Raidus = 12;
+	rocks.Radius = 12;
 	rocks.dead = false;
 	add_temp_entity(rocks);
 }
@@ -137,6 +143,7 @@ void Level::Object_movement()
 		case(EntityKind::COINS):
 		{
 			e->Position.y += static_cast<int>(TRAVEL_DIRECTION_Y * TRAVEL_SPEED_COIN);
+			e->Position.x += TRAVEL_DIRECTION_X;
 
 			if (e->Position.y == 580)
 			{
@@ -149,12 +156,28 @@ void Level::Object_movement()
 		{
 			e->Position.y += static_cast<int>(TRAVEL_DIRECTION_Y * TRAVEL_SPEED_PARTICLE);
 
-			e->Position.x += 1;
+			e->Position.x +=  TRAVEL_DIRECTION_X;
+			
 
 			if (e->Position.y == 580)
 			{
 				e->dead = true;
 			}
+			break;
+
+		}
+
+		case(EntityKind::SMASHED_PARTICLES):
+		{
+			e->Position.y += static_cast<int>(TRAVEL_DIRECTION_Y * TRAVEL_SPEED_SMASHED_PARTICLES);
+
+			e->Position.x += TRAVEL_DIRECTION_X;
+
+			if (e->Position.y == 580)
+			{
+				e->dead = true;
+			}
+			break;
 		}
 		}
 	}
@@ -171,10 +194,10 @@ void Level::spawn_coins(Vector2i SpawnPos)
 
 	for(int i = 0; i<5; i++)
 	{
-		coin.Position.x = SpawnPos.x + GetRandomValue(0, 60);
-		coin.Position.y = SpawnPos.y - GetRandomValue(0, 60);
+		coin.Position.x = SpawnPos.x + GetRandomValue(20,60);
+		coin.Position.y = SpawnPos.y - GetRandomValue(20, 60);
 
-		coin.Raidus = 5;
+		coin.Radius = 5;
 
 		coin.kind = EntityKind::COINS;
 		coin.dead = false;
@@ -193,12 +216,13 @@ void Level::ShipCollision()
 		{
 		case (EntityKind::ROCKS):
 			{
-				int a = static_cast<int>(e->Raidus + all_entities[0]->Raidus);
+				int a = static_cast<int>(e->Radius + all_entities[0]->Radius);
 				int y = abs(e->Position.x - all_entities[0]->Position.x);
 				int h = abs(e->Position.y - all_entities[0]->Position.y);
 
 				if ((a ^ 2) >= (y ^ 2) + (h ^ 2))
 				{
+					spawn_smashed_particles(all_entities[0]->Position);
 					ShipCollided = true;
 
 				}
@@ -207,7 +231,7 @@ void Level::ShipCollision()
 
 		case (EntityKind::COINS):
 			{
-				int a = static_cast<int>(e->Raidus + all_entities[0]->Raidus);
+				int a = static_cast<int>(e->Radius + all_entities[0]->Radius);
 				int y = abs(e->Position.x - all_entities[0]->Position.x);
 				int h = abs(e->Position.y - all_entities[0]->Position.y);
 
@@ -235,7 +259,7 @@ void Level::LaserRockCollision()
 				{
 					if (e_rock->kind == EntityKind::ROCKS)
 					{
-						int a = static_cast<int>(e->Raidus + e_rock->Raidus);
+						int a = static_cast<int>(e->Radius + e_rock->Radius);
 						int y = abs(e->Position.x - e_rock->Position.x);
 						int h = abs(e->Position.y - e_rock->Position.y);
 
@@ -243,6 +267,7 @@ void Level::LaserRockCollision()
 						{
 							PlaySoundMulti(ResourceManager::sound.RockBlast);
 							spawn_coins(e_rock->Position);
+							spawn_smashed_particles(e_rock->Position);
 							e_rock->dead = true;
 
 						}
@@ -293,13 +318,27 @@ void Level::spawn_particles()
 {
 	Entity particles;
 
-	particles.Position.x = GetRandomValue(10, 590);
+	particles.Position.x = GetRandomValue(-30, 560);
 	particles.Position.y = 0;
 	particles.kind = EntityKind::PARTICLES;
-	particles.Raidus = 2;
+	particles.Radius = 2;
 	particles.dead = false;
 	add_temp_entity(particles);
 	
+}
+
+void Level::spawn_smashed_particles(Vector2i SpawnPos)
+{
+	Entity smashed_particles;
+
+	for (int i = 0; i < 5; i++)
+	{
+		smashed_particles.Position = { SpawnPos.x + GetRandomValue(-30,40), SpawnPos.y + GetRandomValue(0,40) };
+		smashed_particles.kind = EntityKind::SMASHED_PARTICLES;
+		smashed_particles.Radius = 4;
+		smashed_particles.dead = false;
+		add_temp_entity(smashed_particles);
+	}
 }
 
 void Level::update()

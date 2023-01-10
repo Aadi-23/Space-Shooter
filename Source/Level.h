@@ -20,6 +20,7 @@ public:
 
 	void render(Textures& texture);
 	Vector2i CreateMovementVector();
+	Vector2 random_direction();
 	void MovePlayer(Vector2i CreateMovementVector);
 	void add_temp_entity(const Entity& entities);
 	void add_start_entity(const Entity & entities);
@@ -43,6 +44,7 @@ public:
 
 
 	void spawn_particles();
+	void spawn_smashed_particles(Vector2i SpawnPos);
 
 	void update();
 
