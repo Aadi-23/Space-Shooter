@@ -1,10 +1,14 @@
 ﻿  Level.cpp
-C:\Users\student-168\Desktop\Assignment-2\Source\Level.cpp(143,33): warning C4244: '+=': conversion from 'float' to 'int', possible loss of data
-C:\Users\student-168\Desktop\Assignment-2\Source\Level.cpp(156,33): warning C4244: '+=': conversion from 'float' to 'int', possible loss of data
-C:\Users\student-168\Desktop\Assignment-2\Source\Level.cpp(210,116): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\student-168\Desktop\Assignment-2\Source\Level.cpp(210,105): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\student-168\Desktop\Assignment-2\Source\Level.cpp(222,113): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\student-168\Desktop\Assignment-2\Source\Level.cpp(222,102): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\student-168\Desktop\Assignment-2\Source\Level.cpp(254,98): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\student-168\Desktop\Assignment-2\Source\Level.cpp(254,87): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\student-168\Desktop\Assignment-2\Source\Level.cpp(189,33): warning C4244: '+=': conversion from 'float' to 'int', possible loss of data
+C:\Users\student-168\Desktop\Assignment-2\Source\Level.cpp(202,33): warning C4244: '+=': conversion from 'float' to 'int', possible loss of data
+C:\Users\student-168\Desktop\Assignment-2\Source\Level.cpp(238,116): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\student-168\Desktop\Assignment-2\Source\Level.cpp(238,105): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\student-168\Desktop\Assignment-2\Source\Level.cpp(251,113): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\student-168\Desktop\Assignment-2\Source\Level.cpp(251,102): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\student-168\Desktop\Assignment-2\Source\Level.cpp(284,98): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\student-168\Desktop\Assignment-2\Source\Level.cpp(284,87): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+  LevelGraphics.cpp
+  ResourceManager.cpp
+  main.cpp
+  Generating Code...
   raylib_template.vcxproj -> C:\Users\student-168\Desktop\Assignment-2\Build\Debug\raylib_template.exe

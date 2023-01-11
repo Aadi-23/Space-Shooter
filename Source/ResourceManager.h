@@ -13,6 +13,10 @@ struct Textures
 struct Sounds
 {
 	Sound RockBlast;
+	Sound CoinCollect;
+	Sound LaserShoot;
+	Sound LaserCharge;
+	Sound ShipExplosion;
 };
 
 

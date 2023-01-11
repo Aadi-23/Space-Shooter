@@ -24,7 +24,7 @@ public:
 	void MovePlayer(Vector2i CreateMovementVector);
 	void add_temp_entity(const Entity& entities);
 	void add_start_entity(const Entity & entities);
-	int index = 0;
+	int Rock_Spawn_index = 0;
 	int laser_charge_timer = 0;
 	bool laser_charged = false;
 	int score = 0;

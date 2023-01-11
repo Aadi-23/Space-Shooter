@@ -13,6 +13,9 @@ void ResourceManager::LoadResources()
 
 
      sound.RockBlast = LoadSound("./Resources/Sounds/RockBlast.wav");
+     sound.CoinCollect = LoadSound("./Resources/Sounds/Coin_Collect.wav");
+     sound.LaserShoot = LoadSound("./Resources/Sounds/LaserShoot.wav");
+     //sound.ShipExplosion = LoadSound("./Resources/Sounds/ShipExplosion.wav");
 }
 
 void ResourceManager::UnloadResources()
@@ -24,6 +27,9 @@ void ResourceManager::UnloadResources()
     UnloadTexture(texture.ShipAnim1);
     UnloadTexture(texture.ShipAnim2);
 
+    UnloadSound(sound.RockBlast);
+    UnloadSound(sound.CoinCollect);
+    UnloadSound(sound.LaserShoot);
 
 
 }
