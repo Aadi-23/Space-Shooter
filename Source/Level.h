@@ -20,7 +20,7 @@ public:
 
 	void render(Textures& texture);
 	Vector2i CreateMovementVector();
-	Vector2 random_direction();
+	
 	void MovePlayer(Vector2i CreateMovementVector);
 	void add_temp_entity(const Entity& entities);
 	void add_start_entity(const Entity & entities);
@@ -28,6 +28,9 @@ public:
 	int laser_charge_timer = 0;
 	bool laser_charged = false;
 	int score = 0;
+	int combo_timer = 60;
+	bool combo_timer_bool = false;
+	int coin_value = 50;
 
 	bool ShipCollided = false;
 

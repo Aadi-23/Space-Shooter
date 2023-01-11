@@ -17,16 +17,10 @@ Vector2i Level::CreateMovementVector()
 		int LRMV = (IsKeyDown(KEY_RIGHT) - IsKeyDown(KEY_LEFT)) * TRAVEL_SPEED_SHIP;
 		int UDMV = (IsKeyDown(KEY_DOWN) - IsKeyDown(KEY_UP)) * TRAVEL_SPEED_SHIP;
 		return Vector2i(LRMV, UDMV);
-	}
-
-	
+	}	
 }
 
-Vector2 Level::random_direction()
-{
-	float angle = GetRandomValue(0, 1) * 2 * PI;
-	return Vector2{ cosf(angle),sinf(angle) };
-}
+
 
 void Level::add_temp_entity(const Entity &entities)
 {
@@ -73,6 +67,7 @@ void Level::spawn_laser()
 	laser.kind = EntityKind::LASER;
 	laser.Radius = 10;
 	laser.dead = false;
+	laser.Direction = { 0,1 };
 
 	add_temp_entity(laser);
 }
@@ -86,6 +81,7 @@ void Level::spawn_rocks()
 	rocks.kind = EntityKind::ROCKS;
 	rocks.Radius = 12;
 	rocks.dead = false;
+	rocks.Direction = {static_cast<float>(GetRandomValue(-1,1)), 1 };
 	add_temp_entity(rocks);
 }
 
@@ -118,7 +114,7 @@ void Level::Object_movement()
 		{
 		case(EntityKind::LASER):
 		{
-			e->Position.y -= static_cast<int>(TRAVEL_DIRECTION_Y * TRAVEL_SPEED_LASER);
+			e->Position.y -= static_cast<int>(e->Direction.y * TRAVEL_SPEED_LASER);
 
 			if (e->Position.y <= 0)
 			{
@@ -130,9 +126,10 @@ void Level::Object_movement()
 
 		case(EntityKind::ROCKS):
 		{
-			e->Position.y += static_cast<int>(TRAVEL_DIRECTION_Y * TRAVEL_SPEED_ROCKS);
+			e->Position.y += static_cast<int>(e->Direction.y * TRAVEL_SPEED_ROCKS);
+			e->Position.x += static_cast<int>(e->Direction.x);
 
-			if (e->Position.y == 580)
+			if (e->Position.y >= 580 || e->Position.x <= 0 || e->Position.x >= 600)
 			{
 				e->dead = true;
 			}
@@ -142,8 +139,8 @@ void Level::Object_movement()
 
 		case(EntityKind::COINS):
 		{
-			e->Position.y += static_cast<int>(TRAVEL_DIRECTION_Y * TRAVEL_SPEED_COIN);
-			e->Position.x += TRAVEL_DIRECTION_X;
+			e->Position.y += static_cast<int>(e->Direction.y * TRAVEL_SPEED_COIN);
+			e->Position.x += e->Direction.x;
 
 			if (e->Position.y == 580)
 			{
@@ -154,12 +151,12 @@ void Level::Object_movement()
 
 		case(EntityKind::PARTICLES):
 		{
-			e->Position.y += static_cast<int>(TRAVEL_DIRECTION_Y * TRAVEL_SPEED_PARTICLE);
+			e->Position.y += static_cast<int>(e->Direction.y * TRAVEL_SPEED_PARTICLE);
 
-			e->Position.x +=  TRAVEL_DIRECTION_X;
+			e->Position.x += e->Direction.x;
 			
 
-			if (e->Position.y == 580)
+			if (e->Position.y >= 580 || e->Position.x <= 0 || e->Position.x >= 600)
 			{
 				e->dead = true;
 			}
@@ -169,11 +166,11 @@ void Level::Object_movement()
 
 		case(EntityKind::SMASHED_PARTICLES):
 		{
-			e->Position.y += static_cast<int>(TRAVEL_DIRECTION_Y * TRAVEL_SPEED_SMASHED_PARTICLES);
+			e->Position.y += static_cast<int>(e->Direction.y * TRAVEL_SPEED_SMASHED_PARTICLES);
 
-			e->Position.x += TRAVEL_DIRECTION_X;
+			e->Position.x += static_cast<int>(e->Direction.x * TRAVEL_SPEED_SMASHED_PARTICLES);
 
-			if (e->Position.y == 580)
+			if (e->Position.y >= 580 || e->Position.y <= 0 || e->Position.x <= 0 || e->Position.x >= 600)
 			{
 				e->dead = true;
 			}
@@ -189,23 +186,17 @@ void Level::spawn_coins(Vector2i SpawnPos)
 {
 	Entity coin;
 
-	
-	
-
 	for(int i = 0; i<5; i++)
 	{
 		coin.Position.x = SpawnPos.x + GetRandomValue(20,60);
 		coin.Position.y = SpawnPos.y - GetRandomValue(20, 60);
-
+		coin.Direction = { static_cast<float>(GetRandomValue(-1,1)),1 };
 		coin.Radius = 5;
 
 		coin.kind = EntityKind::COINS;
 		coin.dead = false;
 		add_temp_entity(coin);
-	}
-	
-
-	
+	}	
 }
 
 void Level::ShipCollision()
@@ -216,29 +207,30 @@ void Level::ShipCollision()
 		{
 		case (EntityKind::ROCKS):
 			{
-				int a = static_cast<int>(e->Radius + all_entities[0]->Radius);
-				int y = abs(e->Position.x - all_entities[0]->Position.x);
-				int h = abs(e->Position.y - all_entities[0]->Position.y);
+			   bool Collision = Math::Check_For_Collision(all_entities[0]->Position, e->Position, all_entities[0]->Radius, e->Radius);
 
-				if ((a ^ 2) >= (y ^ 2) + (h ^ 2))
+				if (Collision)
 				{
 					spawn_smashed_particles(all_entities[0]->Position);
 					ShipCollided = true;
-
 				}
 			}
 			break;
 
 		case (EntityKind::COINS):
 			{
-				int a = static_cast<int>(e->Radius + all_entities[0]->Radius);
-				int y = abs(e->Position.x - all_entities[0]->Position.x);
-				int h = abs(e->Position.y - all_entities[0]->Position.y);
+			bool Collision = Math::Check_For_Collision(all_entities[0]->Position, e->Position, all_entities[0]->Radius, e->Radius);
 
-				if ((a ^ 2) >= (y ^ 2) + (h ^ 2))
+				if (Collision)
 				{
-					score += 1;
+					DrawText(TextFormat("+ %i", coin_value), e->Position.x + 20, e->Position.y - 20, 20, ORANGE);
+					combo_timer_bool = true;
+					score += coin_value;
 					e->dead = true;
+					if (combo_timer > 0)
+					{
+						coin_value += 10;
+					}				
 				}
 			}
 			break;
@@ -259,11 +251,9 @@ void Level::LaserRockCollision()
 				{
 					if (e_rock->kind == EntityKind::ROCKS)
 					{
-						int a = static_cast<int>(e->Radius + e_rock->Radius);
-						int y = abs(e->Position.x - e_rock->Position.x);
-						int h = abs(e->Position.y - e_rock->Position.y);
+						bool Collision = Math::Check_For_Collision(e_rock->Position, e->Position, e_rock->Radius, e->Radius);
 
-						if ((a ^ 2) >= (y ^ 2) + (h ^ 2))
+						if (Collision)
 						{
 							PlaySoundMulti(ResourceManager::sound.RockBlast);
 							spawn_coins(e_rock->Position);
@@ -280,12 +270,7 @@ void Level::LaserRockCollision()
 
 			}
 			break;
-
-			
-		
-		}
-		
-		
+		}		
 	}
 }
 
@@ -323,6 +308,7 @@ void Level::spawn_particles()
 	particles.kind = EntityKind::PARTICLES;
 	particles.Radius = 2;
 	particles.dead = false;
+	particles.Direction = { static_cast<float>(GetRandomValue(-1,1)), 1 };
 	add_temp_entity(particles);
 	
 }
@@ -337,6 +323,7 @@ void Level::spawn_smashed_particles(Vector2i SpawnPos)
 		smashed_particles.kind = EntityKind::SMASHED_PARTICLES;
 		smashed_particles.Radius = 4;
 		smashed_particles.dead = false;
+		smashed_particles.Direction = Math::random_direction();
 		add_temp_entity(smashed_particles);
 	}
 }
@@ -345,16 +332,35 @@ void Level::update()
 {
 	index++;
 
-	if (index == 30)
+	if (score >= 5000 && index >= 10)
+	{
+		spawn_rocks();
+	}
+	else if (index == 30)
 	{
 		spawn_rocks();
 		
+	}
+	else if (score >= 3000 && index >= 45)
+	{
+		spawn_rocks();
 	}
 	else if (index > 60)
 	{
 		spawn_rocks();
 		
 		index = 0;
+	}
+
+	if (combo_timer_bool)
+	{
+		combo_timer--;
+	}
+	if (combo_timer == 0)
+	{
+		coin_value = 50;
+		combo_timer_bool = false;
+		combo_timer = 60;
 	}
 
 	PlayerInput();
