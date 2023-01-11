@@ -1,5 +1,5 @@
 
-
+// I made this enum class So I can assign types to entites and store their identity which i can access later
 
 enum class EntityKind
 {
@@ -14,6 +14,7 @@ enum class EntityKind
 ;
 
 
+// This entity class i maded to keep all characterstics which any entity in game will have.
 class Entity
 {
 public:

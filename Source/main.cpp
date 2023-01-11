@@ -1,5 +1,4 @@
 #include "raylib.h"
-#include "Level.h"
 #include "Menu.h"
 
 
@@ -22,7 +21,7 @@ int main(void)
 
     InitAudioDevice();
 
-    enum struct GameManager{GAMESCREEN, ENDSCREEN};
+    enum struct GameManager{GAMESCREEN, ENDSCREEN};     // I made this enum struct So I can switch to a end screen from game screen while being in a particular state
     GameManager currentscreen = GameManager::GAMESCREEN;
     Level gamelevel;
     Game game;
@@ -32,7 +31,7 @@ int main(void)
     
     game.states.push(State::MAIN_MENU);
     
-    while (game.Isrunning)    // Detect window close button or ESC key
+    while (game.Isrunning)   // Runs the game loop as long as the bool is true
     {
         if (WindowShouldClose())
         {
@@ -76,16 +75,17 @@ int main(void)
 
                 gamelevel.update();
 
-                if (IsKeyPressed(KEY_ESCAPE))
+                if (IsKeyPressed(KEY_ESCAPE))    // Pops the menu screen when press escape
                 {
                     game.states.pop();
+                    game.states.push(State::MENUWHILEGAME);
 
                 }
 
 
                 EndDrawing();
 
-                if (gamelevel.ShipCollided == true)
+                if (gamelevel.ShipCollided == true)  // Go to end screen when ship crashes
                 {
                     currentscreen = GameManager::ENDSCREEN;
 
@@ -93,7 +93,7 @@ int main(void)
                 }
                 break;
 
-
+               
 
             case(GameManager::ENDSCREEN):
             {
@@ -119,9 +119,31 @@ int main(void)
             
             }     
             break;
+
+        case(State::MENUWHILEGAME):
+        {
+            BeginDrawing();
+            ClearBackground(BLACK);
+            game.Menu_While_Game();
+
+            EndDrawing();
         }
-  
- 
+        break;
+
+        case(State::OPTIONS):
+        {
+            BeginDrawing();
+            ClearBackground(BLACK);
+            DrawText("SORRY! NO OPTION FOR NOW.", 100, 250, 30, ORANGE);
+            DrawText("Press ESC", 200, 300, 30, ORANGE);
+            EndDrawing();
+            
+            if (IsKeyPressed(KEY_ESCAPE))
+            {
+                game.states.pop();
+            }
+        }
+        }
         }
     }
 

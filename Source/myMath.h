@@ -10,7 +10,7 @@ struct Vector2i
 	int y = 0;
 };
 
-struct Math
+struct Math                  // I made this struct where i store my mathmeticle function So I do not need them to write them again
 {
 	static float random_float_01();
 	static Vector2 random_direction();

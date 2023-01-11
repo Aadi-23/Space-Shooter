@@ -1,4 +1,4 @@
-#pragma once
+// I keep my all constants values here So I don't need to declare them in code everywhere.
 
 const float TRAVEL_SPEED_LASER = 10.f;
 const float TRAVEL_SPEED_ROCKS = 3.f;
