@@ -62,7 +62,7 @@ void Game::Do_mainmenu_frame()
 	}
 	button_rect.y += button_size.y + button_margin_y;
 
-	if (gui_button(button_rect, "OPTIONS"))
+	if (gui_button(button_rect, "CONTROLS"))
 	{
 		states.push(State::OPTIONS);
 	}

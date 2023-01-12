@@ -141,8 +141,10 @@ int main(void)
         {
             BeginDrawing();
             ClearBackground(BLACK);
-            DrawText("SORRY! NO OPTION FOR NOW.", 100, 250, 30, ORANGE);
-            DrawText("Press ESC", 200, 300, 30, ORANGE);
+            DrawText("Arrow Keys -> Ship Movement", 110, 200, 25, ORANGE);
+            DrawText("Hold 'Z' -> Charge Laser", 150, 230, 25, ORANGE);
+            DrawText("Release 'Z' -> Fire Laser", 150, 260, 25, ORANGE);
+            DrawText("Press ESC for MAINMENU", 140, 300, 25, ORANGE);
             EndDrawing();
             
             if (IsKeyPressed(KEY_ESCAPE))
