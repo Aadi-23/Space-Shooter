@@ -50,7 +50,7 @@ void Level::render(Textures & texture)
 			break;
 
 		case (EntityKind::SMASHED_PARTICLES):
-			DrawCircle(e->Position.x, e->Position.y, e->Radius, RED);
+			DrawCircle(e->Position.x, e->Position.y, e->Radius, ORANGE);
 
 			break;
 		}

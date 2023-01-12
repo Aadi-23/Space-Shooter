@@ -88,20 +88,21 @@ void Game::Menu_While_Game()          // This function draws menu while game is 
 
 	if (gui_button(button_rect, "CONTINUE"))
 	{                                                            // I push the state whenever the gui buttons get clicked 
-		states.push(State::GAME);
+		states.pop();
 	}
 	button_rect.y += button_size.y + button_margin_y;
 
 	if (gui_button(button_rect, "RESTART"))
 	{
 		level.ResetLevel();
-		states.push(State::GAME);
+		states.pop();
 	}
 	button_rect.y += button_size.y + button_margin_y;
 
 	if (gui_button(button_rect, "MAIN MENU"))
 	{
 		level.ResetLevel();
+		states.pop();
 		states.pop();
 	}
 }

@@ -1,5 +1,5 @@
 #include "myMath.h"
-#include <iostream>
+#include <cmath>
 
 
 float Math::random_float_01()

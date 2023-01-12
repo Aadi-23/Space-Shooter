@@ -24,11 +24,10 @@ int main(void)
 
     enum struct GameManager{GAMESCREEN, ENDSCREEN};     // I made this enum struct So I can switch to a end screen from game screen while being in a particular state
     GameManager currentscreen = GameManager::GAMESCREEN;
-    Level gamelevel;
     Game game;
 
     ResourceManager::LoadResources();
-    gamelevel.spawn_ship();
+    game.level.spawn_ship();
     
     game.states.push(State::MAIN_MENU);
     
@@ -74,22 +73,22 @@ int main(void)
 
 
 
-                gamelevel.render(ResourceManager::texture);
+                game.level.render(ResourceManager::texture);
 
-                gamelevel.update();
+                game.level.update();
 
-                if (IsKeyPressed(KEY_ESCAPE))    // Pops the menu screen when press escape
-                {
-                    game.states.pop();
-                    game.states.push(State::MENUWHILEGAME);
-
-                }
 
 
                 EndDrawing();
 
+                if (IsKeyPressed(KEY_ESCAPE))    // Pops the menu screen when press escape
+                {
+                    
+                    game.states.push(State::MENUWHILEGAME);
+
+                }
                 
-                if (gamelevel.ShipCollided == true)  // Go to end screen when ship crashes
+                if (game.level.ShipCollided == true)  // Go to end screen when ship crashes
                 {
                     ShipIndex--;
                     if (ShipIndex <= 0)
@@ -110,7 +109,7 @@ int main(void)
 
                 ClearBackground(BLACK);
 
-                DrawText(TextFormat("Score : %i", gamelevel.score), 220, 200, 40, WHITE);
+                DrawText(TextFormat("Score : %i", game.level.score), 220, 200, 40, WHITE);
                 DrawText("Press R to Go to MainMenu", 90, 300, 30, RAYWHITE);
 
                 EndDrawing();
@@ -118,7 +117,7 @@ int main(void)
                 {
                     game.states.pop();
                     ShipIndex = 30;
-                    gamelevel.ResetLevel();
+                    game.level.ResetLevel();
                     currentscreen = GameManager::GAMESCREEN;
 
                 }

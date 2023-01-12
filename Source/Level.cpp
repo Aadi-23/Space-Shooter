@@ -242,18 +242,25 @@ void Level::ShipCollision()              // I made a one ship collisionbecause s
 	{
 		switch (e->kind)
 		{
-		case (EntityKind::ROCKS):       // Ship and rock collision
+		case (EntityKind::SHIP):       // Ship and rock collision
 			{
-			   // Bool function which checks for the collision and return true
-			   bool Collision = Math::Check_For_Collision(all_entities[0]->Position, e->Position, all_entities[0]->Radius, e->Radius);
 
-				if (Collision)
+			for (Entity* e_rock : all_entities)
+			{
+				if (e_rock->kind == EntityKind::ROCKS)
 				{
-					PlaySoundMulti(ResourceManager::sound.LaserShoot);
-					spawn_smashed_particles(all_entities[0]->Position);
-					all_entities[0]->dead = true;
-					ShipCollided = true;
+					// Bool function which checks for the collision and return true
+					bool Collision = Math::Check_For_Collision(e_rock->Position, e->Position, e_rock->Radius, e->Radius);
+
+					if (Collision)
+					{
+						PlaySoundMulti(ResourceManager::sound.LaserShoot);
+						spawn_smashed_particles(e->Position);
+						ShipCollided = true;
+						e->dead = true;
+					}
 				}
+			}
 			}
 			break;
 
