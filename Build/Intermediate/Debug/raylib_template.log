@@ -1,4 +1,14 @@
-﻿  Menu.cpp
+﻿  Level.cpp
+C:\Users\student-168\Desktop\Assignment-2\Source\Level.cpp(198,33): warning C4244: '+=': conversion from 'float' to 'int', possible loss of data
+C:\Users\student-168\Desktop\Assignment-2\Source\Level.cpp(211,33): warning C4244: '+=': conversion from 'float' to 'int', possible loss of data
+C:\Users\student-168\Desktop\Assignment-2\Source\Level.cpp(253,97): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\student-168\Desktop\Assignment-2\Source\Level.cpp(253,86): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\student-168\Desktop\Assignment-2\Source\Level.cpp(269,113): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\student-168\Desktop\Assignment-2\Source\Level.cpp(269,102): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\student-168\Desktop\Assignment-2\Source\Level.cpp(314,98): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\student-168\Desktop\Assignment-2\Source\Level.cpp(314,87): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+  LevelGraphics.cpp
+  Menu.cpp
 C:\Users\student-168\Desktop\Assignment-2\Source\Menu.cpp(39,47): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
 C:\Users\student-168\Desktop\Assignment-2\Source\Menu.cpp(39,36): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
 C:\Users\student-168\Desktop\Assignment-2\Source\Menu.cpp(39,28): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data

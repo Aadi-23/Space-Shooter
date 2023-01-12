@@ -364,7 +364,7 @@ void Level::update()              // In update I run all the functions which nee
 	//  This is the logic for spawning rock each frame.
 	Rock_Spawn_index++;
 
-	if (score >= 5000 && Rock_Spawn_index >= 10)
+	if (score >= 5000 && Rock_Spawn_index == 10)
 	{
 		spawn_rocks();
 	}
@@ -373,7 +373,7 @@ void Level::update()              // In update I run all the functions which nee
 		spawn_rocks();
 		
 	}
-	else if (score >= 3000 && Rock_Spawn_index >= 45)
+	else if (score >= 3000 && Rock_Spawn_index == 45)
 	{
 		spawn_rocks();
 	}
