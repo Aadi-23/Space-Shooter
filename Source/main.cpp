@@ -18,6 +18,7 @@ int main(void)
     SetTargetFPS(60);  // Set our game to run at 60 frames-per-second
     
     SetExitKey(0);
+    int ShipIndex = 30;
 
     InitAudioDevice();
 
@@ -33,6 +34,8 @@ int main(void)
     
     while (game.Isrunning)   // Runs the game loop as long as the bool is true
     {
+        
+
         if (WindowShouldClose())
         {
             game.Isrunning = false;
@@ -85,10 +88,15 @@ int main(void)
 
                 EndDrawing();
 
+                
                 if (gamelevel.ShipCollided == true)  // Go to end screen when ship crashes
                 {
-                    currentscreen = GameManager::ENDSCREEN;
-
+                    ShipIndex--;
+                    if (ShipIndex <= 0)
+                    {
+                        currentscreen = GameManager::ENDSCREEN;
+                      
+                    }
                 }
                 }
                 break;
@@ -109,7 +117,7 @@ int main(void)
                 if (IsKeyPressed(KEY_R))
                 {
                     game.states.pop();
-                    
+                    ShipIndex = 30;
                     gamelevel.ResetLevel();
                     currentscreen = GameManager::GAMESCREEN;
 

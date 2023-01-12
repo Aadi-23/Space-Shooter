@@ -137,13 +137,17 @@ void Level::spawn_smashed_particles(Vector2i SpawnPos)
 
 void Level::PlayerInput()              // I made player input function So laser spawn here instead doing the logic in spawn functions.
 {
+	if (IsKeyPressed(KEY_Z))
+	{
+		PlaySoundMulti(ResourceManager::sound.LaserCharge);
+	}
 	if (IsKeyDown(KEY_Z))
 	{
 		laser_charge_timer++;
-
 		if (laser_charge_timer == 60)
 		{
 			laser_charged = true;
+			//StopSoundMulti();
 		}
 
 	}
@@ -247,6 +251,7 @@ void Level::ShipCollision()              // I made a one ship collisionbecause s
 				{
 					PlaySoundMulti(ResourceManager::sound.LaserShoot);
 					spawn_smashed_particles(all_entities[0]->Position);
+					all_entities[0]->dead = true;
 					ShipCollided = true;
 				}
 			}

@@ -16,7 +16,7 @@ void ResourceManager::LoadResources()                 //Load resources function 
      sound.RockBlast = LoadSound("./Resources/Sounds/RockBlast.wav");
      sound.CoinCollect = LoadSound("./Resources/Sounds/Coin_Collect.wav");
      sound.LaserShoot = LoadSound("./Resources/Sounds/LaserShoot.wav");
-     //sound.ShipExplosion = LoadSound("./Resources/Sounds/ShipExplosion.wav");
+     sound.LaserCharge = LoadSound("./Resources/Sounds/LaserCharge.wav");
 }
 
 void ResourceManager::UnloadResources()                // I made this function which unloads all reasources and I can call it at the end before closing window So I don't leak memory..
