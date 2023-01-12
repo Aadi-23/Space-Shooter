@@ -9,6 +9,7 @@ void ResourceManager::LoadResources()                 //Load resources function 
      texture.Rocks = LoadTexture("./Resources/Textures/Rock.png");
      texture.Laser = LoadTexture("./Resources/Textures/Laser.png");
      texture.Coins = LoadTexture("./Resources/Textures/Coin.png");
+     texture.ShipAnim0 = LoadTexture("./Resources/Textures/Ship_Anim_0.png");
      texture.ShipAnim1 = LoadTexture("./Resources/Textures/Ship_Anim_1.png");
      texture.ShipAnim2 = LoadTexture("./Resources/Textures/Ship_Anim_2.png");
 

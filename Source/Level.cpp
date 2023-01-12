@@ -63,6 +63,31 @@ void Level::spawn_ship()
 	add_temp_entity(player);
 }
 
+void Level::spawn_anim_laser()
+{
+	Entity Anim_laser_R;
+
+	Anim_laser_R.Position = { all_entities[0]->Position.x + 40, all_entities[0]->Position.y - 60 };
+	Anim_laser_R.dead = false;
+	Anim_laser_R.kind = EntityKind::ANIM_LASER;
+	Anim_laser_R.Radius = 15;
+	Anim_laser_R.Direction = { 1,-1 };
+
+	add_temp_entity(Anim_laser_R);
+
+	Entity Anim_laser_L;
+
+	Anim_laser_L.Position = { all_entities[0]->Position.x - 40, all_entities[0]->Position.y - 60 };
+	Anim_laser_L.dead = false;
+	Anim_laser_L.kind = EntityKind::ANIM_LASER;
+	Anim_laser_L.Radius = 15;
+	Anim_laser_L.Direction = { -1,-1 };
+
+	add_temp_entity(Anim_laser_L);
+	
+
+}
+
 void Level::spawn_laser()
 {
 	Entity laser;
@@ -140,6 +165,7 @@ void Level::PlayerInput()              // I made player input function So laser 
 	if (IsKeyPressed(KEY_Z))
 	{
 		PlaySoundMulti(ResourceManager::sound.LaserCharge);
+		spawn_anim_laser();
 	}
 	if (IsKeyDown(KEY_Z))
 	{
@@ -147,7 +173,6 @@ void Level::PlayerInput()              // I made player input function So laser 
 		if (laser_charge_timer == 60)
 		{
 			laser_charged = true;
-			//StopSoundMulti();
 		}
 
 	}
@@ -231,6 +256,20 @@ void Level::Object_movement()       // I made this object movement function.So I
 			}
 			break;
 		}
+
+		case(EntityKind::ANIM_LASER):
+		{
+			if (e->Position.x != all_entities[0]->Position.x + 10 && e->Position.y != all_entities[0]->Position.y - 30 )
+			{
+				e->Position.x -= static_cast<int>(e->Direction.x) ;
+				e->Position.y -= static_cast<int>(e->Direction.y);
+			}
+			else
+			{
+				e->dead = true;
+			}
+		}
+			break;
 		}
 	}
 

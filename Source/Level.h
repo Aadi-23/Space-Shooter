@@ -50,6 +50,7 @@ public:
 
 	void spawn_particles();
 	void spawn_smashed_particles(Vector2i SpawnPos);
+	void spawn_anim_laser();
 
 	void update();
 

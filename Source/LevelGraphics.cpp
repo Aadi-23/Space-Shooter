@@ -13,11 +13,15 @@ void Level::render(Textures & texture)
 
 			if (IsKeyDown(KEY_Z))
 			{
-				if (laser_charge_timer < 30)
+			if(laser_charge_timer < 30)
+			{
+				DrawTexture(texture.Ship, e->Position.x - 25, e->Position.y - 50, WHITE);
+			}
+				if (laser_charge_timer > 30 && laser_charge_timer <= 40)
 				{
 					DrawTexture(texture.ShipAnim1, e->Position.x - 25, e->Position.y - 50, WHITE);
-			    }
-			    if(laser_charge_timer >= 30)
+				}
+			    if(laser_charge_timer > 40)
 				{
 					DrawTexture(texture.ShipAnim2, e->Position.x - 25, e->Position.y - 50, WHITE);
 				}
@@ -52,6 +56,11 @@ void Level::render(Textures & texture)
 		case (EntityKind::SMASHED_PARTICLES):
 			DrawCircle(e->Position.x, e->Position.y, e->Radius, ORANGE);
 
+			break;
+
+		case(EntityKind::ANIM_LASER):
+			DrawCircle(e->Position.x, e->Position.y, e->Radius, DARKBLUE);
+			DrawTexture(texture.ShipAnim0, e->Position.x - 15, e->Position.y - 15, WHITE);
 			break;
 		}
 		

@@ -1,26 +1,12 @@
 ﻿  Level.cpp
-C:\Users\student-168\Desktop\Assignment-2\Source\Level.cpp(198,33): warning C4244: '+=': conversion from 'float' to 'int', possible loss of data
-C:\Users\student-168\Desktop\Assignment-2\Source\Level.cpp(211,33): warning C4244: '+=': conversion from 'float' to 'int', possible loss of data
-C:\Users\student-168\Desktop\Assignment-2\Source\Level.cpp(253,97): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\student-168\Desktop\Assignment-2\Source\Level.cpp(253,86): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\student-168\Desktop\Assignment-2\Source\Level.cpp(269,113): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\student-168\Desktop\Assignment-2\Source\Level.cpp(269,102): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\student-168\Desktop\Assignment-2\Source\Level.cpp(314,98): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\student-168\Desktop\Assignment-2\Source\Level.cpp(314,87): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\student-168\Desktop\Assignment-2\Source\Level.cpp(223,33): warning C4244: '+=': conversion from 'float' to 'int', possible loss of data
+C:\Users\student-168\Desktop\Assignment-2\Source\Level.cpp(236,33): warning C4244: '+=': conversion from 'float' to 'int', possible loss of data
+C:\Users\student-168\Desktop\Assignment-2\Source\Level.cpp(292,97): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\student-168\Desktop\Assignment-2\Source\Level.cpp(292,86): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\student-168\Desktop\Assignment-2\Source\Level.cpp(308,113): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\student-168\Desktop\Assignment-2\Source\Level.cpp(308,102): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\student-168\Desktop\Assignment-2\Source\Level.cpp(353,98): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\student-168\Desktop\Assignment-2\Source\Level.cpp(353,87): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
   LevelGraphics.cpp
-  Menu.cpp
-C:\Users\student-168\Desktop\Assignment-2\Source\Menu.cpp(39,47): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\student-168\Desktop\Assignment-2\Source\Menu.cpp(39,36): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\student-168\Desktop\Assignment-2\Source\Menu.cpp(39,28): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\student-168\Desktop\Assignment-2\Source\Menu.cpp(39,20): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\student-168\Desktop\Assignment-2\Source\Menu.cpp(54,53): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\student-168\Desktop\Assignment-2\Source\Menu.cpp(55,110): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\student-168\Desktop\Assignment-2\Source\Menu.cpp(56,33): warning C4244: '=': conversion from 'const int' to 'float', possible loss of data
-C:\Users\student-168\Desktop\Assignment-2\Source\Menu.cpp(57,34): warning C4244: '=': conversion from 'const int' to 'float', possible loss of data
-C:\Users\student-168\Desktop\Assignment-2\Source\Menu.cpp(84,53): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\student-168\Desktop\Assignment-2\Source\Menu.cpp(85,110): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\student-168\Desktop\Assignment-2\Source\Menu.cpp(86,33): warning C4244: '=': conversion from 'const int' to 'float', possible loss of data
-C:\Users\student-168\Desktop\Assignment-2\Source\Menu.cpp(87,34): warning C4244: '=': conversion from 'const int' to 'float', possible loss of data
-  main.cpp
   Generating Code...
   raylib_template.vcxproj -> C:\Users\student-168\Desktop\Assignment-2\Build\Debug\raylib_template.exe

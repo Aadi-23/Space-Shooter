@@ -6,6 +6,7 @@ struct Textures   // I declare all the texture in this struct
 	Texture2D Rocks;
 	Texture2D Laser;
 	Texture2D Coins;
+	Texture2D ShipAnim0;
 	Texture2D ShipAnim1;
 	Texture2D ShipAnim2;
 };
