@@ -2,12 +2,12 @@
 #include <cmath>
 
 
-float Math::random_float_01()
+float Math::random_float_01()                 // I took this function from galba which returns a random float for my random direction because raylib doesn't have.
 {
 	return rand() / static_cast<float>(RAND_MAX);
 }
 
-Vector2 Math::random_direction()
+Vector2 Math::random_direction()             // 
 {
 	float angle = random_float_01() * 2 * PI;
 	return Vector2{ cosf(angle),sinf(angle) };

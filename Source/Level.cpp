@@ -244,6 +244,23 @@ void Level::Object_movement()       // I made this object movement function.So I
 
 void Level::ShipCollision()              // I made a one ship collisionbecause ship collides with multiple entities So I can handle all ship collision in this function
 {
+
+	// Combo text show for certain time
+	if (combonumbool)
+	{
+		combonumtimer--;
+		if (combonumtimer < 10 && combonumtimer > 0)
+		{
+			DrawText(TextFormat("+ %i", coin_value), all_entities[0]->Position.x + 20, all_entities[0]->Position.y - 20, 20, ORANGE);
+		}
+		else if (combonumtimer < 0)
+		{
+			combonumbool = false;
+			combonumtimer = 10;
+		}
+	}
+
+
 	for (auto* e : all_entities)
 	{
 		switch (e->kind)
@@ -278,7 +295,7 @@ void Level::ShipCollision()              // I made a one ship collisionbecause s
 				if (Collision)
 				{
 					PlaySoundMulti(ResourceManager::sound.CoinCollect);
-					DrawText(TextFormat("+ %i", coin_value), e->Position.x + 20, e->Position.y - 20, 20, ORANGE);
+					combonumbool = true;
 					combo_timer_bool = true;
 					score += coin_value;
 					e->dead = true;
@@ -308,15 +325,16 @@ void Level::LaserRockCollision()             // This function i use totally for 
 		combo_timer = 60;
 	}
 
+	// This part i did So i can control the screen shake everyframewith update
 	if (screen_shake_bool)
 	{
 		screenshaketimer--;	
-		if (screenshaketimer % 2 == 0)
+		if (screenshaketimer % 2 == 0)            // Only runs when value is even
 		{
 			screen_shake_camera.offset = Math::random_direction() * 5;
 		}
 
-		if (screenshaketimer < 0)
+		if (screenshaketimer < 0)           // Reset everything for the screen shake
 		{
 			screenshaketimer = 10;
 			screen_shake_bool = false;

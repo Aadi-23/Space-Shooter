@@ -5,7 +5,7 @@
 #include "ResourceManager.h"
 #include "Entity.h"
 #include "raymath.h"
-
+#include "raylib.h"
 
 
 class Level
@@ -27,6 +27,10 @@ public:
 	int coin_value = 50;
 	bool ShipCollided = false;
 
+	int combonumtimer = 10;
+	bool combonumbool = false;
+
+	// These i made So I can control the duration ofd screen shake
 	int screenshaketimer = 20;
 	bool screen_shake_bool = false;
 
@@ -44,7 +48,7 @@ public:
 	void add_start_entity(const Entity & entities);
 
 
-	void RefreshEntities();
+	void RefreshEntities();         
 	void spawn_ship();
 	void spawn_laser();
 	void spawn_rocks();

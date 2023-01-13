@@ -89,7 +89,7 @@ int main(void)
 
                 }
             }
-            if (game.level.score >= 100)
+            if (game.level.score >= 10000)
             {
                 game.states.pop();
                 game.states.push(State::WINSCREEN);

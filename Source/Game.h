@@ -23,7 +23,7 @@ public:
 	State state;
 	std::stack<State>states;
 
-	int ShipIndex = 30;
+	int ShipIndex = 30;           // this index i made So i can delay the endscreen after dying
 
 	Level level;
 
