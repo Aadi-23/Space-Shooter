@@ -340,7 +340,7 @@ void Level::LaserRockCollision()             // This function i use totally for 
 						if (Collision)
 						{
 
-							DrawRectangle(0, 0, GetRenderWidth(), GetRenderHeight(), RAYWHITE);
+							DrawRectangle(0,0,GetRenderWidth(), GetRenderHeight(),Color {255,255,255,128});
 							screen_shake_bool = true;
 							PlaySoundMulti(ResourceManager::sound.RockBlast);
 
