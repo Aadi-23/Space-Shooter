@@ -27,8 +27,11 @@ public:
 	int coin_value = 50;
 	bool ShipCollided = false;
 
+	int screenshaketimer = 20;
+	bool screen_shake_bool = false;
+
 	//Camera for screen shake
-	Camera2D screen_shake_camera = { 0 };
+	Camera2D screen_shake_camera = {0};
 	
 	
 	// I made all the functions here which happens in game because they run when the level starts which is game screen.

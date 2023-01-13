@@ -30,6 +30,11 @@ int main(void)
     game.level.spawn_ship();
     
     game.states.push(State::MAIN_MENU);
+
+    game.level.screen_shake_camera;
+    game.level.screen_shake_camera.zoom = 1.f;
+   /* game.level.screen_shake_camera.offset = (Vector2)(GetRenderWidth() / 2, GetRenderHeight() / 2);
+    game.level.screen_shake_camera.target = static_cast<Vector2>(0,0);*/
     
     while (game.Isrunning)   // Runs the game loop as long as the bool is true
     {

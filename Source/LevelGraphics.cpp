@@ -3,9 +3,10 @@
 
 void Level::render(Textures & texture)
 {
-	
+	BeginMode2D(screen_shake_camera);
 	for (Entity* e : all_entities)
 	{
+		
 		DrawText(TextFormat("Score : %i", score), 300, 10, 25, WHITE);
 		switch (e->kind)
 		{
@@ -41,12 +42,8 @@ void Level::render(Textures & texture)
 				DrawTexture(texture.LaserAnim0, laserR_spawn_pos.x - 15, laserR_spawn_pos.y - 15, WHITE);
 				DrawTexture(texture.LaserAnim0, laserL_spawn_pos.x - 15, laserL_spawn_pos.y - 15, WHITE);
 			}
-
-
-
+		    break;
 		}
-
-		break;
 
 		case(EntityKind::LASER):
 
@@ -75,4 +72,5 @@ void Level::render(Textures & texture)
 
 	}
 	
+	EndMode2D();
 }

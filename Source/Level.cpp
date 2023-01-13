@@ -261,6 +261,7 @@ void Level::ShipCollision()              // I made a one ship collisionbecause s
 
 					if (Collision)
 					{
+						screen_shake_bool = true;
 						PlaySoundMulti(ResourceManager::sound.LaserShoot);
 						spawn_smashed_particles(e->Position);
 						ShipCollided = true;
@@ -308,6 +309,22 @@ void Level::LaserRockCollision()             // This function i use totally for 
 		combo_timer = 60;
 	}
 
+	if (screen_shake_bool)
+	{
+		screenshaketimer--;	
+		if (screenshaketimer % 2 == 0)
+		{
+			screen_shake_camera.offset = Math::random_direction() * 5;
+		}
+
+		if (screenshaketimer < 0)
+		{
+			screenshaketimer = 10;
+			screen_shake_bool = false;
+			screen_shake_camera.offset = { 0,0 };
+		}
+	}
+
 	for (Entity* e : all_entities)
 	{
 		switch (e->kind)
@@ -322,11 +339,14 @@ void Level::LaserRockCollision()             // This function i use totally for 
 
 						if (Collision)
 						{
+
+							DrawRectangle(0, 0, GetRenderWidth(), GetRenderHeight(), RAYWHITE);
+							screen_shake_bool = true;
 							PlaySoundMulti(ResourceManager::sound.RockBlast);
+
 							spawn_coins(e_rock->Position);                     // spawn coins with the rock position
 							spawn_smashed_particles(e_rock->Position);         // I spawn the coins and the particles here because i want them to spawn when the collision happens
 							e_rock->dead = true;
-
 						}
 						
 						
@@ -378,7 +398,7 @@ void Level::update()              // In update I run all the functions which nee
 	else if (Rock_Spawn_index == 30)
 	{
 		spawn_rocks();
-		
+
 	}
 	else if (score >= 3000 && Rock_Spawn_index == 45)
 	{
@@ -387,21 +407,17 @@ void Level::update()              // In update I run all the functions which nee
 	else if (Rock_Spawn_index > 60)
 	{
 		spawn_rocks();
-		
+
 		Rock_Spawn_index = 0;
 	}
 
 	PlayerInput();
 	RefreshEntities();
 	MovePlayer(CreateMovementVector());
-	
+
 	spawn_particles();
 	Object_movement();
 	ShipCollision();
-	LaserRockCollision();
-
-	
-
-	
+	LaserRockCollision();	
 }
 
