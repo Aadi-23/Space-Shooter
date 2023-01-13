@@ -140,6 +140,10 @@ void Level::PlayerInput()              // I made player input function So laser 
 	{
 		PlaySoundMulti(ResourceManager::sound.LaserCharge);
 	}
+	else if (IsKeyReleased(KEY_Z))
+	{
+		StopSoundMulti();
+	}
 	if (IsKeyDown(KEY_Z))
 	{
 		if (laser_charge_timer < 60)
