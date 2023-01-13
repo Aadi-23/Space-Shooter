@@ -281,6 +281,7 @@ void Level::ShipCollision()              // I made a one ship collisionbecause s
 
 					if (Collision)
 					{
+						DrawRectangle(0, 0, GetRenderWidth(), GetRenderHeight(), Color{ 255,255,255,128 });             // This is flash effect by rendering a transparent rectangle over window
 						screen_shake_bool = true;
 						PlaySoundMulti(ResourceManager::sound.LaserShoot);
 						spawn_smashed_particles(e->Position);
