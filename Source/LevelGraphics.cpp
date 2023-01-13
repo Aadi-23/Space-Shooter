@@ -4,34 +4,49 @@
 void Level::render(Textures & texture)
 {
 	
-	for (auto& e : all_entities)
+	for (Entity* e : all_entities)
 	{
 		DrawText(TextFormat("Score : %i", score), 300, 10, 25, WHITE);
 		switch (e->kind)
 		{
 		case(EntityKind::SHIP):
+		{
+			// This is lerp code i made to move object towards the ship without doing animations. LaserL stands for left laser and LaserR for right laser.
+			Vector2 laserR_spawn_pos = {(e->Position.x + 30),(e->Position.y - 60) };                              
+			Vector2 laserL_spawn_pos = {(e->Position.x - 30),(e->Position.y - 60) };
 
-			if (IsKeyDown(KEY_Z))
+			// Lerp code for each axis
+			laserR_spawn_pos.x = Lerp(laserR_spawn_pos.x, e->Position.x, laser_charge_timer / 60.f);
+			laserR_spawn_pos.y = Lerp(laserR_spawn_pos.y, e->Position.y, laser_charge_timer / 60.f);
+			laserL_spawn_pos.x = Lerp(laserL_spawn_pos.x, e->Position.x, laser_charge_timer / 60.f);
+			laserL_spawn_pos.y = Lerp(laserL_spawn_pos.y, e->Position.y, laser_charge_timer / 60.f);
+
+			
+
+			if (laser_charge_timer > 30 && laser_charge_timer <= 45)
 			{
-			if(laser_charge_timer < 30)
-			{
-				DrawTexture(texture.Ship, e->Position.x - 25, e->Position.y - 50, WHITE);
+				DrawTexture(texture.ShipAnim1, e->Position.x - 25, e->Position.y - 50, WHITE);
 			}
-				if (laser_charge_timer > 30 && laser_charge_timer <= 40)
-				{
-					DrawTexture(texture.ShipAnim1, e->Position.x - 25, e->Position.y - 50, WHITE);
-				}
-			    if(laser_charge_timer > 40)
-				{
-					DrawTexture(texture.ShipAnim2, e->Position.x - 25, e->Position.y - 50, WHITE);
-				}
+			else if ( laser_charge_timer != 0 && laser_charge_timer > 45)
+			{
+				DrawTexture(texture.ShipAnim2, e->Position.x - 25, e->Position.y - 50, WHITE);
 			}
 			else
 			{
 				DrawTexture(texture.Ship, e->Position.x - 25, e->Position.y - 50, WHITE);
 			}
 
-			break;
+			if (laser_charge_timer != 0 && laser_charge_timer < 30)
+			{
+				DrawTexture(texture.LaserAnim0, laserR_spawn_pos.x - 15, laserR_spawn_pos.y - 15, WHITE);
+				DrawTexture(texture.LaserAnim0, laserL_spawn_pos.x - 15, laserL_spawn_pos.y - 15, WHITE);
+			}
+
+
+
+		}
+
+		break;
 
 		case(EntityKind::LASER):
 
@@ -40,7 +55,7 @@ void Level::render(Textures & texture)
 
 		case(EntityKind::ROCKS):
 
-			DrawTexture(texture.Rocks, e->Position.x - 15 , e->Position.y - 15, WHITE);
+			DrawTexture(texture.Rocks, e->Position.x - 15, e->Position.y - 15, WHITE);
 			break;
 
 		case(EntityKind::COINS):
@@ -54,16 +69,9 @@ void Level::render(Textures & texture)
 			break;
 
 		case (EntityKind::SMASHED_PARTICLES):
-			DrawCircle(e->Position.x, e->Position.y, e->Radius, ORANGE);
-
-			break;
-
-		case(EntityKind::ANIM_LASER):
-			DrawCircle(e->Position.x, e->Position.y, e->Radius, DARKBLUE);
-			DrawTexture(texture.ShipAnim0, e->Position.x - 15, e->Position.y - 15, WHITE);
+			DrawTexture(texture.SmashedParticles, e->Position.x, e->Position.y, WHITE);
 			break;
 		}
-		
 
 	}
 	

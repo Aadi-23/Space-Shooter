@@ -6,9 +6,10 @@ struct Textures   // I declare all the texture in this struct
 	Texture2D Rocks;
 	Texture2D Laser;
 	Texture2D Coins;
-	Texture2D ShipAnim0;
+	Texture2D LaserAnim0;
 	Texture2D ShipAnim1;
 	Texture2D ShipAnim2;
+	Texture2D SmashedParticles;
 };
 
 struct Sounds   // All sounds of the game

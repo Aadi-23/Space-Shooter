@@ -4,6 +4,7 @@
 #include <list>
 #include "ResourceManager.h"
 #include "Entity.h"
+#include "raymath.h"
 
 
 
@@ -26,6 +27,10 @@ public:
 	int coin_value = 50;
 	bool ShipCollided = false;
 
+	//Camera for screen shake
+	Camera2D screen_shake_camera = { 0 };
+	
+	
 	// I made all the functions here which happens in game because they run when the level starts which is game screen.
 
 	void render(Textures& texture);
@@ -50,7 +55,6 @@ public:
 
 	void spawn_particles();
 	void spawn_smashed_particles(Vector2i SpawnPos);
-	void spawn_anim_laser();
 
 	void update();
 

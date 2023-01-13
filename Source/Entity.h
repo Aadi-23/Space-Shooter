@@ -9,8 +9,7 @@ enum class EntityKind
 	ROCKS,
 	COINS,
 	PARTICLES,
-	SMASHED_PARTICLES,
-	ANIM_LASER
+	SMASHED_PARTICLES
 };
 ;
 

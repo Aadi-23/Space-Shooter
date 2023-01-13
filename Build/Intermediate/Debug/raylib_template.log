@@ -1,12 +1,20 @@
-﻿  Level.cpp
-C:\Users\student-168\Desktop\Assignment-2\Source\Level.cpp(223,33): warning C4244: '+=': conversion from 'float' to 'int', possible loss of data
-C:\Users\student-168\Desktop\Assignment-2\Source\Level.cpp(236,33): warning C4244: '+=': conversion from 'float' to 'int', possible loss of data
-C:\Users\student-168\Desktop\Assignment-2\Source\Level.cpp(292,97): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\student-168\Desktop\Assignment-2\Source\Level.cpp(292,86): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\student-168\Desktop\Assignment-2\Source\Level.cpp(308,113): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\student-168\Desktop\Assignment-2\Source\Level.cpp(308,102): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\student-168\Desktop\Assignment-2\Source\Level.cpp(353,98): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\student-168\Desktop\Assignment-2\Source\Level.cpp(353,87): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-  LevelGraphics.cpp
+﻿  LevelGraphics.cpp
+C:\Users\student-168\Desktop\Assignment-2\Source\LevelGraphics.cpp(15,47): warning C4838: conversion from 'int' to 'float' requires a narrowing conversion
+C:\Users\student-168\Desktop\Assignment-2\Source\LevelGraphics.cpp(15,47): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\student-168\Desktop\Assignment-2\Source\LevelGraphics.cpp(15,68): warning C4838: conversion from 'int' to 'float' requires a narrowing conversion
+C:\Users\student-168\Desktop\Assignment-2\Source\LevelGraphics.cpp(15,68): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\student-168\Desktop\Assignment-2\Source\LevelGraphics.cpp(16,47): warning C4838: conversion from 'int' to 'float' requires a narrowing conversion
+C:\Users\student-168\Desktop\Assignment-2\Source\LevelGraphics.cpp(16,47): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\student-168\Desktop\Assignment-2\Source\LevelGraphics.cpp(16,68): warning C4838: conversion from 'int' to 'float' requires a narrowing conversion
+C:\Users\student-168\Desktop\Assignment-2\Source\LevelGraphics.cpp(16,68): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\student-168\Desktop\Assignment-2\Source\LevelGraphics.cpp(19,61): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\student-168\Desktop\Assignment-2\Source\LevelGraphics.cpp(20,61): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\student-168\Desktop\Assignment-2\Source\LevelGraphics.cpp(21,61): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\student-168\Desktop\Assignment-2\Source\LevelGraphics.cpp(22,61): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\student-168\Desktop\Assignment-2\Source\LevelGraphics.cpp(41,81): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\student-168\Desktop\Assignment-2\Source\LevelGraphics.cpp(41,56): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\student-168\Desktop\Assignment-2\Source\LevelGraphics.cpp(42,81): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\student-168\Desktop\Assignment-2\Source\LevelGraphics.cpp(42,56): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+  ResourceManager.cpp
   Generating Code...
   raylib_template.vcxproj -> C:\Users\student-168\Desktop\Assignment-2\Build\Debug\raylib_template.exe
