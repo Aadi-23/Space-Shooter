@@ -7,7 +7,7 @@ void Level::render(Textures & texture)
 	for (Entity* e : all_entities)
 	{
 		
-		DrawText(TextFormat("Score : %i", score), 300, 10, 25, WHITE);
+		DrawText(TextFormat("%i", score), 300, 10, 25, WHITE);
 		switch (e->kind)
 		{
 		case(EntityKind::SHIP):

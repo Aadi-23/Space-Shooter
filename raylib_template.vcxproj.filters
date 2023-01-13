@@ -27,7 +27,7 @@
     <ClCompile Include="Source\ResourceManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Menu.cpp">
+    <ClCompile Include="Source\Game.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Source\myMath.cpp">
@@ -47,7 +47,7 @@
     <ClInclude Include="Source\Level.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Menu.h">
+    <ClInclude Include="Source\Game.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

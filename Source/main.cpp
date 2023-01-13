@@ -1,5 +1,5 @@
 #include "raylib.h"
-#include "Menu.h"
+#include "Game.h"
 
 
 //typedef enum GameManager {GameScreen, GameEndScreen }GameManager;
@@ -18,12 +18,8 @@ int main(void)
     SetTargetFPS(60);  // Set our game to run at 60 frames-per-second
     
     SetExitKey(0);
-    int ShipIndex = 30;
 
     InitAudioDevice();
-
-    enum struct GameManager{GAMESCREEN, ENDSCREEN};     // I made this enum struct So I can switch to a end screen from game screen while being in a particular state
-    GameManager currentscreen = GameManager::GAMESCREEN;
     Game game;
 
     ResourceManager::LoadResources();
@@ -38,13 +34,13 @@ int main(void)
     
     while (game.Isrunning)   // Runs the game loop as long as the bool is true
     {
-        
+
 
         if (WindowShouldClose())
         {
             game.Isrunning = false;
         }
-        
+
         State Current_state = game.states.top();
         switch (Current_state)
         {
@@ -56,81 +52,94 @@ int main(void)
 
             DrawText("Shoot Rock", 150, 60, 50, LIGHTGRAY);
             DrawText("Game By 'Adarsh'", 200, 120, 25, RED);
-           
+
             game.Do_mainmenu_frame();
 
             EndDrawing();
             break;
         }
-        
+
 
         case State::GAME:
         {
+            BeginDrawing();
 
-            switch (currentscreen)
+            ClearBackground(BLACK);
+
+            game.level.render(ResourceManager::texture);
+
+            game.level.update();
+
+            EndDrawing();
+
+            if (IsKeyPressed(KEY_ESCAPE))    // Pops the menu screen when press escape
             {
 
-            case(GameManager::GAMESCREEN):
-                {
-                BeginDrawing();
+                game.states.push(State::MENUWHILEGAME);
 
-                ClearBackground(BLACK);
+            }
 
-
-
-                game.level.render(ResourceManager::texture);
-
-                game.level.update();
-
-
-
-                EndDrawing();
-
-                if (IsKeyPressed(KEY_ESCAPE))    // Pops the menu screen when press escape
-                {
-                    
-                    game.states.push(State::MENUWHILEGAME);
-
-                }
-                
-                if (game.level.ShipCollided == true)  // Go to end screen when ship crashes
-                {
-                    ShipIndex--;
-                    if (ShipIndex <= 0)
-                    {
-                        currentscreen = GameManager::ENDSCREEN;
-                      
-                    }
-                }
-                }
-                break;
-
-               
-
-            case(GameManager::ENDSCREEN):
+            if (game.level.ShipCollided == true)  // Go to end screen when ship crashes
             {
-                
-                BeginDrawing();
-
-                ClearBackground(BLACK);
-
-                DrawText(TextFormat("Score : %i", game.level.score), 220, 200, 40, WHITE);
-                DrawText("Press R to Go to MainMenu", 90, 300, 30, RAYWHITE);
-
-                EndDrawing();
-                if (IsKeyPressed(KEY_R))
+                game.ShipIndex--;
+                if (game.ShipIndex <= 0)
                 {
                     game.states.pop();
-                    ShipIndex = 30;
-                    game.level.ResetLevel();
-                    currentscreen = GameManager::GAMESCREEN;
+                    game.states.push(State::ENDSCREEN);
 
                 }
             }
-            break;
-            
-            }     
-            break;
+            if (game.level.score >= 100)
+            {
+                game.states.pop();
+                game.states.push(State::WINSCREEN);
+            }
+        }
+        break;
+
+        case(State::ENDSCREEN):
+        {
+
+            BeginDrawing();
+
+            ClearBackground(BLACK);
+
+            DrawText(TextFormat("Score : %i", game.level.score), 220, 200, 40, WHITE);
+            DrawText("Press R to Go to MainMenu", 90, 300, 30, RAYWHITE);
+
+            EndDrawing();
+            if (IsKeyPressed(KEY_R))
+            {
+                game.states.pop();
+                game.ShipIndex = 30;
+                game.level.ResetLevel();
+            }
+        }
+        break;
+
+
+
+        case(State::WINSCREEN):
+        {
+            BeginDrawing();
+            ClearBackground(BLACK);
+
+            DrawText("YOU WON!", 200, 120, 40, BLUE);
+            DrawText(TextFormat("Score : %i", game.level.score), 195, 200, 40, RAYWHITE);
+            DrawText("Press ESC to Go to MainMenu", 90, 300, 30, RAYWHITE);
+
+            EndDrawing();
+
+            if (IsKeyPressed(KEY_ESCAPE))
+            {
+                game.states.pop();
+                game.ShipIndex = 30;
+                game.level.ResetLevel();
+                
+            }
+        }
+        break;
+
 
         case(State::MENUWHILEGAME):
         {
@@ -142,23 +151,26 @@ int main(void)
         }
         break;
 
-        case(State::OPTIONS):
+        case(State::CONTROLS):
         {
             BeginDrawing();
             ClearBackground(BLACK);
-            DrawText("Arrow Keys -> Ship Movement", 110, 200, 25, ORANGE);
-            DrawText("Hold 'Z' -> Charge Laser", 150, 230, 25, ORANGE);
-            DrawText("Release 'Z' -> Fire Laser", 150, 260, 25, ORANGE);
-            DrawText("Press ESC for MAINMENU", 140, 300, 25, ORANGE);
+            DrawText("CONTROLS", 200, 160, 35, WHITE);
+            DrawText("Arrow Keys -> Ship Movement", 110, 220, 25, ORANGE);
+            DrawText("Hold 'Z' -> Charge Laser", 150, 250, 25, ORANGE);
+            DrawText("Release 'Z' -> Fire Laser", 150, 280, 25, ORANGE);
+            DrawText("Press ESC for MAINMENU", 140, 350, 25, BLUE);
+            DrawText("WIN - Score: 10000", 160, 100, 35, YELLOW);
             EndDrawing();
-            
+
             if (IsKeyPressed(KEY_ESCAPE))
             {
                 game.states.pop();
             }
         }
+        break;
         }
-        }
+        
     }
 
     CloseAudioDevice();
