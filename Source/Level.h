@@ -41,9 +41,9 @@ public:
 	// I made all the functions here which happens in game because they run when the level starts which is game screen.
 
 	void render(Textures& texture);
-	Vector2i CreateMovementVector();
+	Vector2 CreateMovementVector();
 	
-	void MovePlayer(Vector2i CreateMovementVector);
+	void MovePlayer(Vector2 CreateMovementVector);
 	void add_temp_entity(const Entity& entities);
 	void add_start_entity(const Entity & entities);
 
@@ -52,7 +52,7 @@ public:
 	void spawn_ship();
 	void spawn_laser();
 	void spawn_rocks();
-	void spawn_coins(Vector2i SpawnPos);
+	void spawn_coins(Vector2 SpawnPos);
 	void PlayerInput();
 	void Object_movement();
 	void ShipCollision();
@@ -61,7 +61,7 @@ public:
 
 
 	void spawn_particles();
-	void spawn_smashed_particles(Vector2i SpawnPos);
+	void spawn_smashed_particles(Vector2 SpawnPos);
 
 	void update();
 

@@ -6,8 +6,8 @@
 
 void gui_label(Rectangle rect, const char* label_text)
 {
-	Vector2i text_size = { MeasureText(label_text, 40), 40 };
-	Vector2i text_top_left = (Vector2i{ static_cast<int>(rect.x),static_cast<int>(rect.y) } + (Vector2i{ static_cast<int>(rect.width),static_cast<int>(rect.height) } - text_size) / 2);
+	Vector2 text_size = { MeasureText(label_text, 40), 40 };
+	Vector2 text_top_left = (Vector2{rect.x,rect.y } + (Vector2{rect.width,rect.height} - text_size) / 2);
 
 	DrawText(label_text, text_top_left.x,text_top_left.y,40,WHITE);
 }
@@ -45,7 +45,7 @@ bool gui_button(Rectangle rect, const char* button_text)
 
 void Game::Do_mainmenu_frame()
 {
-	const Vector2i button_size = Vector2i(300, 64);
+	const Vector2 button_size = Vector2(300, 64);
 	const int button_margin_y = 10;
 	const int button_count = 3;
 
@@ -75,7 +75,7 @@ void Game::Do_mainmenu_frame()
 
 void Game::Menu_While_Game()          // This function draws menu while game is in GAME state.
 {
-	const Vector2i button_size = Vector2i(300, 64);
+	const Vector2 button_size = Vector2(300, 64);
 	const int button_margin_y = 10;
 	const int button_count = 3;
 

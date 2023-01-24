@@ -20,7 +20,7 @@ class Entity
 public:
 	
 	EntityKind kind = {};
-	Vector2i Position = { 0,0 };
+	Vector2 Position = { 0,0 };
 	Vector2 Direction = { 0,0 };
 
 	float Radius = 0;

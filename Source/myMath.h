@@ -15,7 +15,7 @@ struct Math                  // I made this struct where i store my Mathmeticle 
 	static float random_float_01();
 	static Vector2 random_direction();
 
-	static bool Check_For_Collision(Vector2i FirstObjectPos, Vector2i SecondObjectPos, int Radius_1, int Radius_2);
+	static bool Check_For_Collision(Vector2 FirstObjectPos, Vector2 SecondObjectPos, int Radius_1, int Radius_2);
 };
 
 constexpr inline Vector2 operator+=(Vector2& a, const Vector2& b)
@@ -162,7 +162,7 @@ constexpr inline Vector2i operator/(Vector2i a, const Vector2i& b)
 	return a;
 }
 
-constexpr inline Vector2i operator/(Vector2i a, int b)
+constexpr inline Vector2 operator/(Vector2 a, int b)
 {
 	a /= b;
 	return a;

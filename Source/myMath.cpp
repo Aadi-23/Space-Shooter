@@ -13,7 +13,7 @@ Vector2 Math::random_direction()             //
 	return Vector2{ cosf(angle),sinf(angle) };
 }
 
-bool Math::Check_For_Collision(Vector2i FirstObjectPos, Vector2i SecondObjectPos, int Radius_1, int Radius_2)
+bool Math::Check_For_Collision(Vector2 FirstObjectPos, Vector2 SecondObjectPos, int Radius_1, int Radius_2)
 {
 	int a = static_cast<int>(Radius_1 + Radius_2);
 	int y = abs(FirstObjectPos.x - SecondObjectPos.x);

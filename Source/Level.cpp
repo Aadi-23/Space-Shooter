@@ -3,20 +3,13 @@
 
 
 
-Vector2i Level::CreateMovementVector()               // I made this movement vectore So I can use it for movement of the player. It return the vector by calculating the key input.
+Vector2 Level::CreateMovementVector()               // I made this movement vectore So I can use it for movement of the player. It return the vector by calculating the key input.
 {
-	if (IsKeyDown(KEY_Z))
-	{
-		int LRMV = (IsKeyDown(KEY_RIGHT) - IsKeyDown(KEY_LEFT)) * TRAVEL_SPEED_SHIP_CHARGING;
-		int UDMV = (IsKeyDown(KEY_DOWN) - IsKeyDown(KEY_UP)) * TRAVEL_SPEED_SHIP_CHARGING;
-		return Vector2i(LRMV, UDMV);
-	}
-	else
-	{
-		int LRMV = (IsKeyDown(KEY_RIGHT) - IsKeyDown(KEY_LEFT)) * TRAVEL_SPEED_SHIP;
-		int UDMV = (IsKeyDown(KEY_DOWN) - IsKeyDown(KEY_UP)) * TRAVEL_SPEED_SHIP;
-		return Vector2i(LRMV, UDMV);
-	}	
+	int LRMV = (IsKeyDown(KEY_RIGHT) - IsKeyDown(KEY_LEFT));
+	int UDMV = (IsKeyDown(KEY_DOWN) - IsKeyDown(KEY_UP));
+	Vector2 movevector = { LRMV, UDMV };
+
+	return Vector2Normalize(movevector);
 }
 
 
@@ -36,10 +29,18 @@ void Level::add_start_entity(const Entity& entities)
 }
 
 
-void Level::MovePlayer(Vector2i CreateMovementVector)     // This function I use to pass the movement generated and then i add it up to the current position of ship.
+void Level::MovePlayer(Vector2 CreateMovementVector)     // This function I use to pass the movement generated and then i add it up to the current position of ship.
 {
-	Vector2i FuturePosition = all_entities[0]->Position + CreateMovementVector;
-	
+	Vector2 FuturePosition;
+	if (IsKeyDown(KEY_Z))
+	{
+		FuturePosition = all_entities[0]->Position + CreateMovementVector * TRAVEL_SPEED_SHIP_CHARGING;
+	}
+	else
+	{
+		FuturePosition = all_entities[0]->Position + CreateMovementVector * TRAVEL_SPEED_SHIP;
+	}
+
 	if ((FuturePosition.x > 0 + 20) && (FuturePosition.x < GetRenderWidth() - 20) && (FuturePosition.y > 0 + 20) && (FuturePosition.y < GetRenderHeight() - 20))
 	{
 		all_entities[0]->Position = FuturePosition;
@@ -53,7 +54,7 @@ void Level::spawn_ship()
 {
 	Entity player;
 
-	player.Position = { GetRenderWidth()/2,GetRenderHeight()/2 };
+	player.Position = { (float)GetRenderWidth()/2,(float)GetRenderHeight()/2 };
 	player.kind = EntityKind::SHIP;
 	player.Radius = 20;
 	player.dead = false;
@@ -87,7 +88,7 @@ void Level::spawn_rocks()
 	add_temp_entity(rocks);
 }
 
-void Level::spawn_coins(Vector2i SpawnPos)
+void Level::spawn_coins(Vector2 SpawnPos)
 {
 	Entity coin;
 
@@ -119,7 +120,7 @@ void Level::spawn_particles()
 
 // These two functions is the particles effect functions
 
-void Level::spawn_smashed_particles(Vector2i SpawnPos)
+void Level::spawn_smashed_particles(Vector2 SpawnPos)
 {
 	Entity smashed_particles;
 
